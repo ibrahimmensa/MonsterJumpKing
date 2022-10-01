@@ -49,4 +49,10 @@ public class GameplayUIHandler : MonoBehaviour
         }
         jumpPower = 100 - Mathf.Abs(powerSlider.value);
     }
+
+    public void onClickPause()
+    {
+        MenuHandler.Instance.pauseMenuHandler.gameObject.SetActive(true);
+        Time.timeScale = 0;
+    }
 }

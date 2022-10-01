@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded)
         {
-            rb.AddForce(new Vector2(0.75f, 2f) * MenuHandler.Instance.gamePlayUIHandler.jumpPower / 17f, ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0.75f, 2.5f) * MenuHandler.Instance.gamePlayUIHandler.jumpPower / 25f, ForceMode2D.Impulse);
             //rb.velocity = new Vector2(0.75f, 2f) * MenuHandler.Instance.gamePlayUIHandler.jumpPower / 17f;
         }
     }
@@ -39,7 +39,14 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "platform")
         {
             isGrounded = true;
-            MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+            if (collision.transform.parent.name.Contains("FinalPlatform"))
+            {
+                Debug.Log("Level Completed");
+            }
+            else
+            {
+                MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+            }
         }
     }
 
@@ -58,6 +65,14 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "fall")
+        {
+            Debug.Log("Level Fail");
         }
     }
 }

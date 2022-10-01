@@ -35,20 +35,41 @@ public class PlatformSpawner : MonoBehaviour
             float nextPlatformDistance = Random.Range(minDistance, maxDistance);
             if (SceneHandler.Instance.levelHandler.DifficultyNumber > 3)
             {
-                float nextPlatformHeight = Random.Range(-3, 3);
+                Debug.Log("In level 3");
+                float nextPlatformHeight = Random.Range(-2, 2);
                 int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
-                GameObject temp = Instantiate(allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, nextPlatformHeight, 0), Quaternion.identity, platformParent);
+                GameObject temp = Instantiate(allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y + nextPlatformHeight, 0), Quaternion.identity, platformParent);
                 previousPlatform = temp;
                 allSpawnedPlatforms.Add(temp);
             }
             else 
             {
+                Debug.Log("In level 1");
                 //float nextPlatformHeight = Random.Range(-3, 3);
                 int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
-                GameObject temp = Instantiate(allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, 0, 0), Quaternion.identity, platformParent);
+                GameObject temp = Instantiate(allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y, 0), Quaternion.identity, platformParent);
                 previousPlatform = temp;
                 allSpawnedPlatforms.Add(temp);
             }
+        }
+        float finalPlatformDistance = Random.Range(minDistance, maxDistance);
+        if (SceneHandler.Instance.levelHandler.DifficultyNumber > 3)
+        {
+            Debug.Log("In level 3");
+            float nextPlatformHeight = Random.Range(-2, 2);
+            //int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
+            GameObject temp = Instantiate(lastPlatform, new Vector3(previousPlatform.transform.position.x + finalPlatformDistance, previousPlatform.transform.position.y + nextPlatformHeight, 0), Quaternion.identity, platformParent);
+            previousPlatform = temp;
+            allSpawnedPlatforms.Add(temp);
+        }
+        else
+        {
+            Debug.Log("In level 1");
+            //float nextPlatformHeight = Random.Range(-3, 3);
+            //int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
+            GameObject temp = Instantiate(lastPlatform, new Vector3(previousPlatform.transform.position.x + finalPlatformDistance, previousPlatform.transform.position.y, 0), Quaternion.identity, platformParent);
+            previousPlatform = temp;
+            allSpawnedPlatforms.Add(temp);
         }
     }
 
