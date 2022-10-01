@@ -19,6 +19,8 @@ public class SceneHandler : Singleton<SceneHandler>
     public GameObject[] playerPrefabs;
     public int selectedPlayerNumber = 0;
     public Vector3 playerPosition;
+    public GameObject spawnedPlayer;
+    public Camera cam;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,7 @@ public class SceneHandler : Singleton<SceneHandler>
 
     public void spawnPlayer()
     {
-        
+        spawnedPlayer = Instantiate(playerPrefabs[selectedPlayerNumber], playerPosition, Quaternion.identity);
+        cam.gameObject.GetComponent<CameraFollow>().player = spawnedPlayer.transform;
     }
 }

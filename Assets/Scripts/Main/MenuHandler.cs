@@ -8,6 +8,9 @@ public class MenuHandler : Singleton<MenuHandler>
     public ShopMenu shopMenu;
     public SettingsMenu settingsMenu;
     public GameplayUIHandler gamePlayUIHandler;
+    public LevelCompleteHandler levelCompleteHandler;
+    public LevelFailHandler levelFailHandler;
+    public PauseMenuHandler pauseMenuHandler;
     public MenuStates currentState;
     // Start is called before the first frame update
     void Start()
