@@ -50,4 +50,8 @@ public class CharacterSelection : MonoBehaviour
             }
         }
     }
+    public void SelectCharacter()
+    {
+
+    }
 }
