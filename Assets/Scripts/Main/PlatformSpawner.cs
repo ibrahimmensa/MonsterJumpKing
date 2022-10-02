@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlatformType
+{
+    BASIC,
+    MOVING,
+    LAVA,
+    ICE,
+    ICEMOVING,
+    FINALPLATFORM
+}
+
 public class PlatformSpawner : MonoBehaviour
 {
     public GameObject[] allPlatforms;
