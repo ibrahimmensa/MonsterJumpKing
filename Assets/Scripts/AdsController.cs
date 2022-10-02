@@ -41,7 +41,9 @@ public class AdsController : MonoBehaviour
 
     public void RequestAndLoadInterstitial()
     {
-#if UNITY_ANDROID
+#if UNITY_EDITOR
+        string adUnitId = "unused";
+#elif UNITY_ANDROID
         string adUnitId = "ca-app-pub-1778345177688333/2200042645";
 #elif UNITY_IPHONE
         string adUnitId = "ca-app-pub-1778345177688333/8810479181";
@@ -62,7 +64,9 @@ public class AdsController : MonoBehaviour
 
     public void RequestAndLoadRewarded()
     {
-#if UNITY_ANDROID
+#if UNITY_EDITOR
+        string adUnitId = "unused";
+#elif UNITY_ANDROID
         string adUnitId = "ca-app-pub-1778345177688333/7943323915";
 #elif UNITY_IPHONE
         string adUnitId = "ca-app-pub-1778345177688333/2742968129";
