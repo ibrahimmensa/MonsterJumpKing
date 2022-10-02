@@ -20,13 +20,13 @@ public class CharacterSelection : MonoBehaviour
     public void NextCharacter()
     {
         DisbaleAll();
-        AssignCurrentCharacter(currentCharacter);
+        AssignCurrentCharacter(currentCharacter, true);
         CharactersList[currentCharacter].SetActive(true);
     }
     public void PreviousCharacter()
     {
         DisbaleAll();
-        AssignCurrentCharacter(currentCharacter);
+        AssignCurrentCharacter(currentCharacter, false);
         CharactersList[currentCharacter].SetActive(true);
     }
     public void DisbaleAll()
@@ -36,9 +36,16 @@ public class CharacterSelection : MonoBehaviour
             CharactersList[i].SetActive(false);
         }
     }
-    public void AssignCurrentCharacter(int i)
+    public void AssignCurrentCharacter(int i, bool forward)
     {
-        currentCharacter = (i = 1) % CharactersList.Count;
+        if(forward)
+        {
+            currentCharacter = (i + 1) % CharactersList.Count;
+        }
+        else
+        {
+            currentCharacter = Mathf.Abs((i - 1) % CharactersList.Count);
+        }
     }
     public void FindActiveCharacter()
     {
