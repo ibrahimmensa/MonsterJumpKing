@@ -11,6 +11,7 @@ public class MenuHandler : Singleton<MenuHandler>
     public LevelCompleteHandler levelCompleteHandler;
     public LevelFailHandler levelFailHandler;
     public PauseMenuHandler pauseMenuHandler;
+    public CharacterSelection characterSelectioncreen;
     public MenuStates currentState;
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,9 @@ public class MenuHandler : Singleton<MenuHandler>
                 gamePlayUIHandler.gameObject.SetActive(true);
                 currentState = MenuStates.GAMEPLAY;
                 break;
+            case MenuStates.CHARACTERSELECTION:
+                characterSelectioncreen.gameObject.SetActive(true);
+                break;
         }
     }
 
@@ -57,5 +61,6 @@ public class MenuHandler : Singleton<MenuHandler>
         shopMenu.gameObject.SetActive(false);
         settingsMenu.gameObject.SetActive(false);
         gamePlayUIHandler.gameObject.SetActive(false);
+        characterSelectioncreen.gameObject.SetActive(false);
     }
 }

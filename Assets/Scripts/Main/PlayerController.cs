@@ -6,10 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody2D rb;
     public bool isGrounded = false;
+    Animator anim;
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -17,11 +23,20 @@ public class PlayerController : MonoBehaviour
     {
         if (SceneHandler.Instance.isGamePlay)
         {
+#if UNITY_EDITOR
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
                 jump();
             }
+#endif
+#if UNITY_ANDROID
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
+                jump();
+            }
+#endif
         }
     }
 
@@ -29,7 +44,9 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrounded)
         {
+            SoundManager.Instance.playOnce(SoundEffects.JUMP);
             rb.AddForce(new Vector2(0.75f, 2.5f) * MenuHandler.Instance.gamePlayUIHandler.jumpPower / 25f, ForceMode2D.Impulse);
+            anim.SetTrigger("jump");
             //rb.velocity = new Vector2(0.75f, 2f) * MenuHandler.Instance.gamePlayUIHandler.jumpPower / 17f;
         }
     }
@@ -39,11 +56,12 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "platform")
         {
             isGrounded = true;
-            if (collision.transform.parent.name.Contains("FinalPlatform"))
-            {
-                Debug.Log("Level Completed");
-            }
-            else
+            //if (collision.transform.parent.name.Contains("FinalPlatform"))
+            //{
+            //    MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
+            //    Debug.Log("Level Completed");
+            //}
+            //else
             {
                 MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
             }
@@ -73,6 +91,13 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "fall")
         {
             Debug.Log("Level Fail");
+            MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
+            this.gameObject.SetActive(false);
+        }
+        else if (collision.transform.tag == "finalPoint")
+        {
+            SoundManager.Instance.playOnce(SoundEffects.LEVELCOMPLETE);
+            MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
         }
     }
 }

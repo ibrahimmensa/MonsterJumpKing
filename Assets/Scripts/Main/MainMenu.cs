@@ -21,32 +21,51 @@ public class MainMenu : MonoBehaviour
 
     public void onClickPlay()
     {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.startLevel();
         MenuHandler.Instance.switchMenu(MenuStates.GAMEPLAY);
     }
 
     public void onClickSettings()
     {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.switchMenu(MenuStates.SETTINGS);
     }
 
     public void onClickShop()
     {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.switchMenu(MenuStates.SHOP);
     }
 
     public void onClickNoAds()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
 
     public void onClickRewards()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
 
     public void onClickFreeCoins()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
 
     public void onClickMoreCoins()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
 
     public void onClickMoreGems()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
+
+    public void onClickCharacterSelection()
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        MenuHandler.Instance.switchMenu(MenuStates.CHARACTERSELECTION);
+    }
 }

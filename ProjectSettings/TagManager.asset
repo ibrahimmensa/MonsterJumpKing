@@ -8,6 +8,7 @@ TagManager:
   - Failed Trigger
   - Platform
   - fall
+  - finalPoint
   layers:
   - Default
   - TransparentFX

@@ -52,6 +52,7 @@ public class GameplayUIHandler : MonoBehaviour
 
     public void onClickPause()
     {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.pauseMenuHandler.gameObject.SetActive(true);
         Time.timeScale = 0;
     }

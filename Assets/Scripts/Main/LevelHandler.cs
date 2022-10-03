@@ -9,12 +9,21 @@ public class LevelHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        levelNumber = PlayerPrefs.GetInt("LevelNumber", 1);
+        DifficultyNumber = PlayerPrefs.GetInt("DifficultyNumber", 1);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void increaseLevelNumber()
+    {
+        levelNumber++;
+        DifficultyNumber = 1 + (levelNumber / 300);
+        PlayerPrefs.SetInt("LevelNumber", levelNumber);
+        PlayerPrefs.SetInt("DifficultyNumber", DifficultyNumber);
     }
 }

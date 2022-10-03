@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum PlatformType
 {
@@ -12,9 +13,15 @@ public enum PlatformType
     FINALPLATFORM
 }
 
-public class PlatformSpawner : MonoBehaviour
+[Serializable]
+public class platformCategory
 {
     public GameObject[] allPlatforms;
+}
+
+public class PlatformSpawner : MonoBehaviour
+{
+    public platformCategory[] allPlatforms;
     public GameObject lastPlatform;
     public GameObject initialPlatform;
     public float minDistance, maxDistance;
@@ -22,16 +29,17 @@ public class PlatformSpawner : MonoBehaviour
     public GameObject previousPlatform;
     public Transform platformParent;
     public List<GameObject> allSpawnedPlatforms;
+    public int environmentNumber = 0;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void spawnPlatformForLevel()
@@ -42,31 +50,31 @@ public class PlatformSpawner : MonoBehaviour
         int platformCount = levelNumber * 3;
         for (int i = 0; i < platformCount; i++)
         {
-            float nextPlatformDistance = Random.Range(minDistance, maxDistance);
+            float nextPlatformDistance = UnityEngine.Random.Range(minDistance, maxDistance);
             if (SceneHandler.Instance.levelHandler.DifficultyNumber > 3)
             {
                 Debug.Log("In level 3");
-                float nextPlatformHeight = Random.Range(-2, 2);
-                int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
-                GameObject temp = Instantiate(allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y + nextPlatformHeight, 0), Quaternion.identity, platformParent);
+                float nextPlatformHeight = UnityEngine.Random.Range(-2, 2);
+                int platformIndex = UnityEngine.Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
+                GameObject temp = Instantiate(allPlatforms[environmentNumber].allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y + nextPlatformHeight, 0), Quaternion.identity, platformParent);
                 previousPlatform = temp;
                 allSpawnedPlatforms.Add(temp);
             }
-            else 
+            else
             {
                 Debug.Log("In level 1");
                 //float nextPlatformHeight = Random.Range(-3, 3);
-                int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
-                GameObject temp = Instantiate(allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y, 0), Quaternion.identity, platformParent);
+                int platformIndex = UnityEngine.Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
+                GameObject temp = Instantiate(allPlatforms[environmentNumber].allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y, 0), Quaternion.identity, platformParent);
                 previousPlatform = temp;
                 allSpawnedPlatforms.Add(temp);
             }
         }
-        float finalPlatformDistance = Random.Range(minDistance, maxDistance);
+        float finalPlatformDistance = UnityEngine.Random.Range(minDistance, maxDistance);
         if (SceneHandler.Instance.levelHandler.DifficultyNumber > 3)
         {
             Debug.Log("In level 3");
-            float nextPlatformHeight = Random.Range(-2, 2);
+            float nextPlatformHeight = UnityEngine.Random.Range(-2, 2);
             //int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
             GameObject temp = Instantiate(lastPlatform, new Vector3(previousPlatform.transform.position.x + finalPlatformDistance, previousPlatform.transform.position.y + nextPlatformHeight, 0), Quaternion.identity, platformParent);
             previousPlatform = temp;

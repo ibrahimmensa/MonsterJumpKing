@@ -15,4 +15,23 @@ public class LevelFailHandler : MonoBehaviour
     {
         
     }
+
+    private void OnEnable()
+    {
+        SoundManager.Instance.bg.Stop();
+    }
+
+    public void onClickRestart()
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        SceneHandler.Instance.restartLevel();
+        gameObject.SetActive(false);
+    }
+
+    public void onClickHome()
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        SceneHandler.Instance.backToMenu();
+        gameObject.SetActive(false);
+    }
 }

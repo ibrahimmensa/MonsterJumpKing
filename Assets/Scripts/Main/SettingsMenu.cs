@@ -20,17 +20,24 @@ public class SettingsMenu : MonoBehaviour
     }
 
     public void toggleMusic()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
 
     public void toggleVibrations()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
 
     public void onClickBack()
     {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
     }
 
     public void onClickPrivacyPolicy()
-    { }
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+    }
 
 }

@@ -8,7 +8,8 @@ public enum MenuStates
     MAINMENU,
     SETTINGS,
     SHOP,
-    GAMEPLAY
+    GAMEPLAY,
+    CHARACTERSELECTION
 }
 
 public class SceneHandler : Singleton<SceneHandler>
@@ -24,7 +25,7 @@ public class SceneHandler : Singleton<SceneHandler>
     // Start is called before the first frame update
     void Start()
     {
-        
+        PlayerPrefs.DeleteAll();
     }
 
     // Update is called once per frame
@@ -49,11 +50,32 @@ public class SceneHandler : Singleton<SceneHandler>
         MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
         platformSpawner.spawnPlatformForLevel();
         spawnPlayer();
+        SoundManager.Instance.bg.Play();
     }
 
     public void spawnPlayer()
     {
+        selectedPlayerNumber = PlayerPrefs.GetInt("SelectedCharacter", 0);
         spawnedPlayer = Instantiate(playerPrefabs[selectedPlayerNumber], playerPosition, Quaternion.identity);
         cam.gameObject.GetComponent<CameraFollow>().player = spawnedPlayer.transform;
     }
+
+    public void restartLevel()
+    {
+        isGamePlay = false;
+        platformSpawner.clearAllPlatforms();
+        Destroy(spawnedPlayer);
+        startLevel();
+    }
+
+    public void backToMenu()
+    {
+        isGamePlay = false;
+        platformSpawner.clearAllPlatforms();
+        Destroy(spawnedPlayer);
+        MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
+        SoundManager.Instance.bg.Stop();
+    }
+
+
 }

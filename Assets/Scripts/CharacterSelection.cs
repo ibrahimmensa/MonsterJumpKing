@@ -12,6 +12,11 @@ public class CharacterSelection : MonoBehaviour
         FindActiveCharacter();
     }
 
+    private void OnEnable()
+    {
+        currentCharacter = PlayerPrefs.GetInt("SelectedCharacter", 0);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -59,6 +64,13 @@ public class CharacterSelection : MonoBehaviour
     }
     public void SelectCharacter()
     {
+        SceneHandler.Instance.selectedPlayerNumber = currentCharacter;
+        onClickBack();
+        PlayerPrefs.SetInt("SelectedCharacter", currentCharacter);
+    }
 
+    public void onClickBack()
+    {
+        MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
     }
 }
