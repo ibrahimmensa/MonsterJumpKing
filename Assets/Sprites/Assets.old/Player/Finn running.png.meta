@@ -42,6 +42,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -256,6 +257,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Finn running_5: 7453247017394374567
+      Finn running_2: -2646252394447446446
+      Finn running_4: 4225935740978475390
+      Finn running_1: -3548953841433062805
+      Finn running_3: -5654798178854417405
+      Finn running_0: -1426033817574902325
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -22,7 +22,7 @@ public class LevelHandler : MonoBehaviour
     public void increaseLevelNumber()
     {
         levelNumber++;
-        DifficultyNumber = 1 + (levelNumber / 300);
+        DifficultyNumber = 1 + (levelNumber / 3);
         PlayerPrefs.SetInt("LevelNumber", levelNumber);
         PlayerPrefs.SetInt("DifficultyNumber", DifficultyNumber);
     }

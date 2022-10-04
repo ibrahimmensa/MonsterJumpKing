@@ -51,6 +51,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -328,6 +329,16 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Finn idle_4: -2440345129731225382
+      Finn idle_7: 4555329184601667158
+      Finn idle_2: 2419975801955895150
+      Finn idle_5: 3189802299713001636
+      Finn idle_8: -3916628488422070998
+      Finn idle_0: 3992610912256842728
+      Finn idle_1: 2806721188879926329
+      Finn idle_3: -4040356952910722859
+      Finn idle_6: -2999023346665376736
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
