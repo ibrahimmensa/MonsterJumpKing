@@ -9,6 +9,8 @@ TagManager:
   - Platform
   - fall
   - finalPoint
+  - hurdle
+  - coin
   layers:
   - Default
   - TransparentFX

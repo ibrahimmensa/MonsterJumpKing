@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public bool isGrounded = false;
     Animator anim;
+    public int coinsCollected = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         anim = GetComponent<Animator>();
+        coinsCollected = 0;
     }
 
     // Update is called once per frame
@@ -56,15 +58,19 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "platform")
         {
             isGrounded = true;
-            //if (collision.transform.parent.name.Contains("FinalPlatform"))
-            //{
-            //    MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
-            //    Debug.Log("Level Completed");
-            //}
-            //else
+            if (collision.transform.parent.name.Contains("FinalPlatform"))
+            {
+                MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
+                Debug.Log("Level Completed");
+            }
+            else
             {
                 MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
             }
+        }
+        else if (collision.transform.tag == "hurdle")
+        {
+            die();
         }
     }
 
@@ -99,5 +105,42 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.playOnce(SoundEffects.LEVELCOMPLETE);
             MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
         }
+        else if (collision.transform.tag == "platform")
+        {
+            isGrounded = true;
+            MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+        }
+        else if (collision.tag == "coin")
+        {
+            coinCollected();
+            Destroy(collision.gameObject);
+        }
     }
+
+    public void die()
+    {
+        rb.AddForce(Vector3.up, ForceMode2D.Impulse);
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        StartCoroutine(dieWithDelay());
+    }
+
+    IEnumerator dieWithDelay()
+    {
+        yield return new WaitForSeconds(2);
+        MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+
+    public void coinCollected()
+    {
+        coinsCollected++;
+        updateUI();
+    }
+
+
+    public void updateUI()
+    {
+        MenuHandler.Instance.gamePlayUIHandler.updateUI(coinsCollected);
+    }
+
 }

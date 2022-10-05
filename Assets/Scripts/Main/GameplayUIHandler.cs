@@ -56,4 +56,9 @@ public class GameplayUIHandler : MonoBehaviour
         MenuHandler.Instance.pauseMenuHandler.gameObject.SetActive(true);
         Time.timeScale = 0;
     }
+
+    public void updateUI(int coinText)
+    {
+        coinCount.text = coinText.ToString();
+    }
 }

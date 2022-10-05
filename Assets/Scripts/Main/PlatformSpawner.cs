@@ -74,6 +74,10 @@ public class PlatformSpawner : MonoBehaviour
         if (SceneHandler.Instance.levelHandler.DifficultyNumber > 3)
         {
             Debug.Log("In level 3");
+            if (SceneHandler.Instance.levelHandler.DifficultyNumber % 3 == 0)
+            {
+                SceneHandler.Instance.cam.GetComponent<CameraFollow>().spawnBirdHurdle();
+            }
             float nextPlatformHeight = UnityEngine.Random.Range(-2, 2);
             //int platformIndex = Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
             GameObject temp = Instantiate(lastPlatform, new Vector3(previousPlatform.transform.position.x + finalPlatformDistance, previousPlatform.transform.position.y + nextPlatformHeight, 0), Quaternion.identity, platformParent);
