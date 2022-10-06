@@ -5,6 +5,7 @@ using UnityEngine;
 public class platformHandler : MonoBehaviour
 {
     public PlatformType platformType;
+    public GameObject playerSpawnPosition; 
     // Start is called before the first frame update
     void Start()
     {

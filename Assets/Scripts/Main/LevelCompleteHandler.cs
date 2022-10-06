@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class LevelCompleteHandler : MonoBehaviour
 {
     public Text levelNumber;
+    public Text coinText;
+    public Text gemText;
+    public int totalCoins;
+    public int totalGems;
+    public Button rewardBtn;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +25,22 @@ public class LevelCompleteHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        
         SoundManager.Instance.bg.Stop();
         levelNumber.text = "Level " + SceneHandler.Instance.levelHandler.levelNumber.ToString();
+        totalCoins = (SceneHandler.Instance.spawnedPlayer.GetComponent<PlayerController>().coinsCollected + 100);
+        coinText.text = totalCoins.ToString();
+        gemText.text = "1";
+        totalGems = 1;
+        if (SceneHandler.Instance.gotDoubleReward)
+        {
+            rewardBtn.interactable = false;
+        }
+        else
+        {
+            rewardBtn.interactable = true;
+        }
+        
     }
 
     public void onClickHome()
@@ -29,6 +48,7 @@ public class LevelCompleteHandler : MonoBehaviour
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.backToMenu();
         gameObject.SetActive(false);
+        saveReward();
     }
 
 
@@ -38,5 +58,28 @@ public class LevelCompleteHandler : MonoBehaviour
         SceneHandler.Instance.levelHandler.increaseLevelNumber();
         SceneHandler.Instance.restartLevel();
         gameObject.SetActive(false);
+        saveReward();
+    }
+
+    public void OnClickDoubleReward()
+    {
+        AdsInitializer.Instance.ShowAd(RewardedAdType.DOUBLEREWARD);
+    }
+
+    public void saveReward()
+    {
+        GoogleAdMobController.Instance.ShowInterstitialAd();
+        PlayerPrefs.SetInt("Coins", totalCoins);
+        PlayerPrefs.SetInt("Gems", totalGems);
+    }
+
+    public void doubleRewardResponse()
+    {
+        rewardBtn.interactable = false;
+        totalCoins *= 2;
+        totalGems *= 2;
+        levelNumber.text = "Level " + SceneHandler.Instance.levelHandler.levelNumber.ToString();
+        coinText.text = totalCoins.ToString();
+        gemText.text = totalGems.ToString();
     }
 }

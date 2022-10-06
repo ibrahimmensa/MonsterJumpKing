@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 
-public class GoogleAdMobController : MonoBehaviour
+public class GoogleAdMobController : Singleton<GoogleAdMobController>
 {
     private readonly TimeSpan APPOPEN_TIMEOUT = TimeSpan.FromHours(4);
     private DateTime appOpenExpireTime;
@@ -67,24 +67,25 @@ public class GoogleAdMobController : MonoBehaviour
         // the next Update() loop.
         MobileAdsEventExecutor.ExecuteInUpdate(() =>
         {
-            statusText.text = "Initialization complete.";
+            //statusText.text = "Initialization complete.";
             RequestBannerAd();
+            RequestAndLoadInterstitialAd();
         });
     }
 
     private void Update()
     {
-        if (showFpsMeter)
-        {
-            fpsMeter.gameObject.SetActive(true);
-            deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
-            float fps = 1.0f / deltaTime;
-            fpsMeter.text = string.Format("{0:0.} fps", fps);
-        }
-        else
-        {
-            fpsMeter.gameObject.SetActive(false);
-        }
+        //if (showFpsMeter)
+        //{
+        //    fpsMeter.gameObject.SetActive(true);
+        //    deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        //    float fps = 1.0f / deltaTime;
+        //    fpsMeter.text = string.Format("{0:0.} fps", fps);
+        //}
+        //else
+        //{
+        //    fpsMeter.gameObject.SetActive(false);
+        //}
     }
 
     #endregion
@@ -124,7 +125,7 @@ public class GoogleAdMobController : MonoBehaviour
         }
 
         // Create a 320x50 banner at top of the screen
-        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
 
         // Add Event Handlers
         bannerView.OnAdLoaded += (sender, args) =>
@@ -554,7 +555,7 @@ public class GoogleAdMobController : MonoBehaviour
         Debug.Log(message);
         MobileAdsEventExecutor.ExecuteInUpdate(() =>
         {
-            statusText.text = message;
+            //statusText.text = message;
         });
     }
 

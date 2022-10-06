@@ -19,6 +19,12 @@ public class MainMenu : MonoBehaviour
         
     }
 
+    private void OnEnable()
+    {
+        coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
+        gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
+    }
+
     public void onClickPlay()
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
@@ -51,6 +57,7 @@ public class MainMenu : MonoBehaviour
     public void onClickFreeCoins()
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        AdsInitializer.Instance.ShowAd(RewardedAdType.FREECOINS);
     }
 
     public void onClickMoreCoins()
@@ -67,5 +74,11 @@ public class MainMenu : MonoBehaviour
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.switchMenu(MenuStates.CHARACTERSELECTION);
+    }
+
+    public void updateStats()
+    {
+        coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
+        gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
     }
 }

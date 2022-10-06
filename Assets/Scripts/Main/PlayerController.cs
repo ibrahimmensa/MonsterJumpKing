@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded = false;
     Animator anim;
     public int coinsCollected = 0;
+    public GameObject lastPlatform;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         coinsCollected = 0;
+        updateUI();
     }
 
     // Update is called once per frame
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+            SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
         }
     }
 
@@ -97,8 +100,9 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "fall")
         {
             Debug.Log("Level Fail");
-            MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
-            this.gameObject.SetActive(false);
+            //MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
+            die();
+            //this.gameObject.SetActive(false);
         }
         else if (collision.transform.tag == "finalPoint")
         {
@@ -109,6 +113,7 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+            SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
         }
         else if (collision.tag == "coin")
         {
@@ -119,6 +124,7 @@ public class PlayerController : MonoBehaviour
 
     public void die()
     {
+        SceneHandler.Instance.coinsBeforeFall = coinsCollected;
         rb.AddForce(Vector3.up, ForceMode2D.Impulse);
         GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(dieWithDelay());
