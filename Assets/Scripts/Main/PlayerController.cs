@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     public int coinsCollected = 0;
     public GameObject lastPlatform;
+    public int Lives = 3;
     // Start is called before the first frame update
     void Start()
     {
-        
+        MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<Text>().text = Lives.ToString();
     }
 
     private void OnEnable()
@@ -72,7 +74,16 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.transform.tag == "hurdle")
         {
-            die();
+            Lives--;
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<Text>().text = Lives.ToString();
+            if (Lives <= 0)
+            {
+                die();
+            }
+            else
+            {
+                SceneHandler.Instance.revivePlayer();
+            }
         }
     }
 
@@ -100,8 +111,17 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "fall")
         {
             Debug.Log("Level Fail");
+            Lives--;
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<Text>().text = Lives.ToString();
+            if (Lives <= 0)
+            {
+                die();
+            }
+            else
+            {
+                SceneHandler.Instance.revivePlayer();
+            }
             //MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
-            die();
             //this.gameObject.SetActive(false);
         }
         else if (collision.transform.tag == "finalPoint")

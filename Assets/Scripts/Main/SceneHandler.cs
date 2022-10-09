@@ -95,7 +95,10 @@ public class SceneHandler : Singleton<SceneHandler>
         cam.gameObject.GetComponent<CameraFollow>().player = spawnedPlayer.transform;
         spawnedPlayer.GetComponent<PlayerController>().coinsCollected = coinsBeforeFall;
         spawnedPlayer.GetComponent<PlayerController>().updateUI();
-        isRevivedOnce = true;
+        if(spawnedPlayer.GetComponent<PlayerController>().Lives <= 0)
+        {
+            isRevivedOnce = true;
+        }
         MenuHandler.Instance.levelFailHandler.reviveBtn.interactable = false;
         SoundManager.Instance.bg.Play();
     }
