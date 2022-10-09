@@ -36,6 +36,10 @@ public class CharacterBuying : MonoBehaviour
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems", 0) - RequiredAssetAmount);
             }
+            else
+            {
+                Debug.Log("Not Enough Gems");
+            }
         }
         else if(RequiredAssetType == "C")
         {
@@ -44,6 +48,10 @@ public class CharacterBuying : MonoBehaviour
                 PlayerPrefs.SetString(CharacterNumber, "true");
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Gems", 0) - RequiredAssetAmount);
+            }
+            else
+            {
+                Debug.Log("Not Enough Coins");
             }
         }
     }

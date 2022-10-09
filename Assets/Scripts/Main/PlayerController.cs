@@ -10,11 +10,11 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     public int coinsCollected = 0;
     public GameObject lastPlatform;
-    public int Lives = 3;
+    
     // Start is called before the first frame update
     void Start()
     {
-        MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<Text>().text = Lives.ToString();
+        MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
     }
 
     private void OnEnable()
@@ -74,14 +74,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.transform.tag == "hurdle")
         {
-            Lives--;
-            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<Text>().text = Lives.ToString();
-            if (Lives <= 0)
+            SceneHandler.Instance.Lives--;
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
+            if (SceneHandler.Instance.Lives <= 0)
             {
                 die();
             }
             else
             {
+                WentDown();
                 SceneHandler.Instance.revivePlayer();
             }
         }
@@ -111,14 +112,15 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "fall")
         {
             Debug.Log("Level Fail");
-            Lives--;
-            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<Text>().text = Lives.ToString();
-            if (Lives <= 0)
+            SceneHandler.Instance.Lives--;
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
+            if (SceneHandler.Instance.Lives <= 0)
             {
                 die();
             }
             else
             {
+                WentDown();
                 SceneHandler.Instance.revivePlayer();
             }
             //MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
@@ -155,6 +157,15 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2);
         MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
+        Destroy(this);
+    }
+    public void WentDown()
+    {
+        SceneHandler.Instance.coinsBeforeFall = coinsCollected;
+        rb.AddForce(Vector3.up, ForceMode2D.Impulse);
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        this.gameObject.SetActive(false);
+        Destroy(this);
     }
 
     public void coinCollected()

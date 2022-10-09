@@ -27,6 +27,7 @@ public class SceneHandler : Singleton<SceneHandler>
     public bool clearPlayerPrefs = false;
     public bool isRevivedOnce = false;
     public bool gotDoubleReward = false;
+    public int Lives = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -88,6 +89,7 @@ public class SceneHandler : Singleton<SceneHandler>
 
     public void revivePlayer()
     {
+        Debug.Log("revivied ");
         MenuHandler.Instance.levelFailHandler.gameObject.SetActive(false);
         MenuHandler.Instance.switchMenu(MenuStates.GAMEPLAY);
         selectedPlayerNumber = PlayerPrefs.GetInt("SelectedCharacter", 0);
@@ -95,7 +97,7 @@ public class SceneHandler : Singleton<SceneHandler>
         cam.gameObject.GetComponent<CameraFollow>().player = spawnedPlayer.transform;
         spawnedPlayer.GetComponent<PlayerController>().coinsCollected = coinsBeforeFall;
         spawnedPlayer.GetComponent<PlayerController>().updateUI();
-        if(spawnedPlayer.GetComponent<PlayerController>().Lives <= 0)
+        if(Lives <= 0 && !isRevivedOnce)
         {
             isRevivedOnce = true;
         }

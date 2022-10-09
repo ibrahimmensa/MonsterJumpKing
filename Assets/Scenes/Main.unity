@@ -701,6 +701,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 8
+  RequiredAssetAmount: 20
+  RequiredAssetType: G
 --- !u!1 &34697126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +1920,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 2
+  RequiredAssetAmount: 1100
+  RequiredAssetType: C
 --- !u!1 &160816834
 GameObject:
   m_ObjectHideFlags: 0
@@ -8261,6 +8265,7 @@ MonoBehaviour:
   clearPlayerPrefs: 1
   isRevivedOnce: 0
   gotDoubleReward: 0
+  Lives: 3
 --- !u!4 &611594212
 Transform:
   m_ObjectHideFlags: 0
@@ -12804,6 +12809,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 3
+  RequiredAssetAmount: 2900
+  RequiredAssetType: C
 --- !u!1 &912036352
 GameObject:
   m_ObjectHideFlags: 0
@@ -13602,6 +13609,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 6
+  RequiredAssetAmount: 16
+  RequiredAssetType: G
 --- !u!1 &1016759239
 GameObject:
   m_ObjectHideFlags: 0
@@ -13686,9 +13695,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GamePlayMenuController, Assembly-CSharp
-        m_MethodName: GoHome
+      - m_Target: {fileID: 932624061}
+        m_TargetAssemblyTypeName: CharacterSelection, Assembly-CSharp
+        m_MethodName: BuyPlayer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16345,6 +16354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 1
+  RequiredAssetAmount: 350
+  RequiredAssetType: C
 --- !u!1 &1230404410
 GameObject:
   m_ObjectHideFlags: 0
@@ -18519,6 +18530,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 4
+  RequiredAssetAmount: 7000
+  RequiredAssetType: C
 --- !u!1 &1415624988
 GameObject:
   m_ObjectHideFlags: 0
@@ -24797,6 +24810,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 5
+  RequiredAssetAmount: 15000
+  RequiredAssetType: C
 --- !u!1 &2035027244
 GameObject:
   m_ObjectHideFlags: 0
@@ -26222,6 +26237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CharacterNumber: 7
+  RequiredAssetAmount: 18
+  RequiredAssetType: G
 --- !u!1 &2139341005
 GameObject:
   m_ObjectHideFlags: 0
