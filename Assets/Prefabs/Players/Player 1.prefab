@@ -122,8 +122,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.24, y: 1.66}
+  m_Offset: {x: 0.013094034, y: 0}
+  m_Size: {x: 0.8646364, y: 1.66}
   m_Direction: 0
 --- !u!50 &107061412939986516
 Rigidbody2D:
@@ -161,6 +161,7 @@ MonoBehaviour:
   rb: {fileID: 107061412939986516}
   isGrounded: 0
   coinsCollected: 0
+  lastPlatform: {fileID: 0}
 --- !u!61 &2735318837249782685
 BoxCollider2D:
   m_ObjectHideFlags: 0

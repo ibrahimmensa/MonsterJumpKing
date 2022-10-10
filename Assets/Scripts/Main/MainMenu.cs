@@ -10,7 +10,8 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
+        gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
     }
 
     // Update is called once per frame

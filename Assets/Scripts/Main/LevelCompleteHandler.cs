@@ -72,8 +72,8 @@ public class LevelCompleteHandler : MonoBehaviour
     {
         //AdsInitializer.Instance.ShowAdInterstitial();
         //GoogleAdMobController.Instance.ShowInterstitialAd();
-        PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 100) + totalCoins);
-        PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems", 100) + totalGems);
+        PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 0) + totalCoins);
+        PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems", 0) + totalGems);
         SceneHandler.Instance.Lives = 3;
     }
 

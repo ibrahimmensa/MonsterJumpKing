@@ -33,7 +33,7 @@ public class SceneHandler : Singleton<SceneHandler>
     {
         if (clearPlayerPrefs)
         {
-            PlayerPrefs.DeleteAll();
+            //PlayerPrefs.DeleteAll();
         }
     }
 
