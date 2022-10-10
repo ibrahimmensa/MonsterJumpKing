@@ -11,6 +11,7 @@ public class GameplayUIHandler : MonoBehaviour
     public bool moveSlider = false;
     public float sliderMinValue, sliderMaxValue, sliderSpeed, jumpPower;
     public bool increaseSlider = false, decreaseSlider = false;
+    public GameObject LivesText;
     // Start is called before the first frame update
     void Start()
     {

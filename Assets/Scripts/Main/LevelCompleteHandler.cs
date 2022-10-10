@@ -74,6 +74,7 @@ public class LevelCompleteHandler : MonoBehaviour
         //GoogleAdMobController.Instance.ShowInterstitialAd();
         PlayerPrefs.SetInt("Coins", totalCoins);
         PlayerPrefs.SetInt("Gems", totalGems);
+        SceneHandler.Instance.Lives = 3;
     }
 
     public void doubleRewardResponse()

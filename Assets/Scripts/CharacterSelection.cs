@@ -73,4 +73,8 @@ public class CharacterSelection : MonoBehaviour
     {
         MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
     }
+    public void BuyPlayer()
+    {
+        CharactersList[currentCharacter].GetComponent<CharacterBuying>().BuyPlayer();
+    }
 }

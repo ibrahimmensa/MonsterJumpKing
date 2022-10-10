@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     public int coinsCollected = 0;
     public GameObject lastPlatform;
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
     }
 
     private void OnEnable()
@@ -72,7 +74,17 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.transform.tag == "hurdle")
         {
-            die();
+            SceneHandler.Instance.Lives--;
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
+            if (SceneHandler.Instance.Lives <= 0)
+            {
+                die();
+            }
+            else
+            {
+                WentDown();
+                SceneHandler.Instance.revivePlayer();
+            }
         }
     }
 
@@ -100,8 +112,18 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "fall")
         {
             Debug.Log("Level Fail");
+            SceneHandler.Instance.Lives--;
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
+            if (SceneHandler.Instance.Lives <= 0)
+            {
+                die();
+            }
+            else
+            {
+                WentDown();
+                SceneHandler.Instance.revivePlayer();
+            }
             //MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
-            die();
             //this.gameObject.SetActive(false);
         }
         else if (collision.transform.tag == "finalPoint")
@@ -135,6 +157,15 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2);
         MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
+        Destroy(this);
+    }
+    public void WentDown()
+    {
+        SceneHandler.Instance.coinsBeforeFall = coinsCollected;
+        rb.AddForce(Vector3.up, ForceMode2D.Impulse);
+        GetComponent<CapsuleCollider2D>().enabled = false;
+        this.gameObject.SetActive(false);
+        Destroy(this);
     }
 
     public void coinCollected()
