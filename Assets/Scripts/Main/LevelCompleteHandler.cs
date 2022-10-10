@@ -48,6 +48,7 @@ public class LevelCompleteHandler : MonoBehaviour
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.backToMenu();
         gameObject.SetActive(false);
+        AdsInitializer.Instance.ShowAdInterstitial();
         saveReward();
     }
 
@@ -58,6 +59,7 @@ public class LevelCompleteHandler : MonoBehaviour
         SceneHandler.Instance.levelHandler.increaseLevelNumber();
         SceneHandler.Instance.restartLevel();
         gameObject.SetActive(false);
+        AdsInitializer.Instance.ShowAdInterstitial();
         saveReward();
     }
 
@@ -68,7 +70,8 @@ public class LevelCompleteHandler : MonoBehaviour
 
     public void saveReward()
     {
-        GoogleAdMobController.Instance.ShowInterstitialAd();
+        //AdsInitializer.Instance.ShowAdInterstitial();
+        //GoogleAdMobController.Instance.ShowInterstitialAd();
         PlayerPrefs.SetInt("Coins", totalCoins);
         PlayerPrefs.SetInt("Gems", totalGems);
     }

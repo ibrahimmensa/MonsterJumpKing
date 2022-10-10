@@ -3274,11 +3274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91329f361f741d64c9054e03eee36655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidGameId: 4956210
-  _iOSGameId: 4956211
+  _androidGameId: 4960445
+  _iOSGameId: 4960444
   _testMode: 1
   _androidAdUnitId: Rewarded_Android
   _iOSAdUnitId: Rewarded_iOS
+  _androidAdUnitIdInterstitial: Interstitial_Android
+  _iOsAdUnitIdInterstitial: Interstitial_iOS
   currentAdType: 0
 --- !u!1 &290100035
 GameObject:
@@ -8176,7 +8178,7 @@ MonoBehaviour:
   moveSlider: 0
   sliderMinValue: -100
   sliderMaxValue: 100
-  sliderSpeed: 0.5
+  sliderSpeed: 2.25
   jumpPower: 0
   increaseSlider: 0
   decreaseSlider: 0
@@ -17324,7 +17326,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1434206018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17334,30 +17336,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1434206017}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda6c5d4a1783431a9879ec966a480b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f0b028a2bce01740b6e700fcecda8e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnAdLoadedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAdFailedToLoadEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAdOpeningEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAdFailedToShowEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnUserEarnedRewardEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnAdClosedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  showFpsMeter: 1
-  fpsMeter: {fileID: 0}
-  statusText: {fileID: 0}
 --- !u!4 &1434206019
 Transform:
   m_ObjectHideFlags: 0

@@ -23,6 +23,7 @@ public class MainMenu : MonoBehaviour
     {
         coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
         gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
+        GoogleAdsManager.Instance.RequestBanner();
     }
 
     public void onClickPlay()
@@ -30,6 +31,7 @@ public class MainMenu : MonoBehaviour
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.startLevel();
         MenuHandler.Instance.switchMenu(MenuStates.GAMEPLAY);
+        GoogleAdsManager.Instance.destroyBanner();
     }
 
     public void onClickSettings()

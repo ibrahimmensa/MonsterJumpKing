@@ -36,6 +36,7 @@ public class LevelFailHandler : MonoBehaviour
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.restartLevel();
         gameObject.SetActive(false);
+        //AdsInitializer.Instance.ShowAdInterstitial();
     }
 
     public void onClickHome()
@@ -43,6 +44,7 @@ public class LevelFailHandler : MonoBehaviour
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.backToMenu();
         gameObject.SetActive(false);
+        AdsInitializer.Instance.ShowAdInterstitial();
     }
 
     public void onClickRevive()
