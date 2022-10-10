@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     public int coinsCollected = 0;
     public GameObject lastPlatform;
+    bool HasFall = false;
     
     // Start is called before the first frame update
     void Start()
@@ -82,8 +83,9 @@ public class PlayerController : MonoBehaviour
                 MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
             }
         }
-        else if (collision.transform.tag == "hurdle")
+        else if (collision.transform.tag == "hurdle" && SceneHandler.Instance.isGamePlay && !HasFall)
         {
+            HasFall = true;
             SceneHandler.Instance.Lives--;
             if (SceneHandler.Instance.Lives > 0)
             {
@@ -99,8 +101,8 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                Debug.Log("Wentdown hurdle");
                 WentDown();
-                SceneHandler.Instance.revivePlayer();
             }
         }
     }
@@ -129,8 +131,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "fall" && SceneHandler.Instance.isGamePlay)
+        if (collision.transform.tag == "fall" && SceneHandler.Instance.isGamePlay && !HasFall)
         {
+            HasFall = true;
             Debug.Log("Level Fail");
             SceneHandler.Instance.Lives--;
             if (SceneHandler.Instance.Lives > 0)
@@ -147,7 +150,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                Debug.Log("Wentdown");
+                Debug.Log("Wentdown fall");
                 WentDown();
             }
             //MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
