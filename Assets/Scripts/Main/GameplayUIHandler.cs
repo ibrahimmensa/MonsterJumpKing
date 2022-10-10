@@ -11,7 +11,7 @@ public class GameplayUIHandler : MonoBehaviour
     public bool moveSlider = false;
     public float sliderMinValue, sliderMaxValue, sliderSpeed, jumpPower;
     public bool increaseSlider = false, decreaseSlider = false;
-    public GameObject LivesText;
+    public Text LivesText;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +55,8 @@ public class GameplayUIHandler : MonoBehaviour
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.pauseMenuHandler.gameObject.SetActive(true);
-        Time.timeScale = 0;
+        moveSlider = false;
+        //Time.timeScale = 0;
     }
 
     public void updateUI(int coinText)

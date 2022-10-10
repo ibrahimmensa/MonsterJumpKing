@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -14,7 +15,14 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
+        if (SceneHandler.Instance.Lives > 0)
+        {
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.text = SceneHandler.Instance.Lives.ToString();
+        }
+        else
+        {
+            MenuHandler.Instance.gamePlayUIHandler.LivesText.text = "0";
+        }
     }
 
     private void OnEnable()
@@ -39,6 +47,8 @@ public class PlayerController : MonoBehaviour
 #if UNITY_ANDROID
             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
+                if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
+                    return;
                 MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
                 jump();
             }
@@ -75,7 +85,14 @@ public class PlayerController : MonoBehaviour
         else if (collision.transform.tag == "hurdle")
         {
             SceneHandler.Instance.Lives--;
-            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
+            if (SceneHandler.Instance.Lives > 0)
+            {
+                MenuHandler.Instance.gamePlayUIHandler.LivesText.text = SceneHandler.Instance.Lives.ToString();
+            }
+            else
+            {
+                MenuHandler.Instance.gamePlayUIHandler.LivesText.text = "0";
+            }
             if (SceneHandler.Instance.Lives <= 0)
             {
                 die();
@@ -102,32 +119,43 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "platform")
         {
             isGrounded = true;
-            MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
-            SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+            //MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+            if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+            {
+                SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+            }
         }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "fall")
+        if (collision.transform.tag == "fall" && SceneHandler.Instance.isGamePlay)
         {
             Debug.Log("Level Fail");
             SceneHandler.Instance.Lives--;
-            MenuHandler.Instance.gamePlayUIHandler.LivesText.GetComponent<TMPro.TMP_Text>().text = SceneHandler.Instance.Lives.ToString();
+            if (SceneHandler.Instance.Lives > 0)
+            {
+                MenuHandler.Instance.gamePlayUIHandler.LivesText.text = SceneHandler.Instance.Lives.ToString();
+            }
+            else
+            {
+                MenuHandler.Instance.gamePlayUIHandler.LivesText.text = "0";
+            }
             if (SceneHandler.Instance.Lives <= 0)
             {
                 die();
             }
             else
             {
+                Debug.Log("Wentdown");
                 WentDown();
-                SceneHandler.Instance.revivePlayer();
             }
             //MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
             //this.gameObject.SetActive(false);
         }
-        else if (collision.transform.tag == "finalPoint")
+        else if (collision.transform.tag == "finalPoint" && SceneHandler.Instance.isGamePlay)
         {
+            SceneHandler.Instance.isGamePlay = false;
             SoundManager.Instance.playOnce(SoundEffects.LEVELCOMPLETE);
             MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
         }
@@ -135,7 +163,10 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
-            SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+            if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+            {
+                SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+            }
         }
         else if (collision.tag == "coin")
         {
@@ -146,6 +177,8 @@ public class PlayerController : MonoBehaviour
 
     public void die()
     {
+        if (!SceneHandler.Instance.isGamePlay)
+            return;
         SceneHandler.Instance.coinsBeforeFall = coinsCollected;
         rb.AddForce(Vector3.up, ForceMode2D.Impulse);
         GetComponent<CapsuleCollider2D>().enabled = false;
@@ -155,17 +188,22 @@ public class PlayerController : MonoBehaviour
     IEnumerator dieWithDelay()
     {
         yield return new WaitForSeconds(2);
+        MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
         MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
-        this.gameObject.SetActive(false);
-        Destroy(this);
+        //this.gameObject.SetActive(false);
+        Destroy(this.gameObject);
     }
     public void WentDown()
     {
+        if (!SceneHandler.Instance.isGamePlay)
+            return;
         SceneHandler.Instance.coinsBeforeFall = coinsCollected;
         rb.AddForce(Vector3.up, ForceMode2D.Impulse);
         GetComponent<CapsuleCollider2D>().enabled = false;
-        this.gameObject.SetActive(false);
-        Destroy(this);
+        //this.gameObject.SetActive(false);
+
+        SceneHandler.Instance.revivePlayer();
+        Destroy(this.gameObject);
     }
 
     public void coinCollected()

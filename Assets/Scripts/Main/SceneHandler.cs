@@ -46,6 +46,7 @@ public class SceneHandler : Singleton<SceneHandler>
     public void startLevel()
     {
         isGamePlay = true;
+        Lives = 3;
         int tutorialShown = PlayerPrefs.GetInt("isTutorialShown", 0);
         if (tutorialShown == 0)
         {

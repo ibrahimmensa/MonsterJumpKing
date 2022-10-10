@@ -38,6 +38,7 @@ public class SettingsMenu : MonoBehaviour
     public void onClickPrivacyPolicy()
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        Application.OpenURL("https://mensaplay.com/wensa/privacy-policy.html");
     }
 
 }
