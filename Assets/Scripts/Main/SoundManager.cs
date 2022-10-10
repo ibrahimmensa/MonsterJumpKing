@@ -14,7 +14,8 @@ public class SoundManager : Singleton<SoundManager>
 {
     public AudioClip buttonClick, jump, death, levelComplete, bgMusic;
     public AudioSource sfx, bg;
-
+    bool isMusicOn = true;
+    bool isSFXOn = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,11 @@ public class SoundManager : Singleton<SoundManager>
     void Update()
     {
         
+    }
+
+    private void OnEnable()
+    {
+        setState();
     }
 
     public void playOnce(SoundEffects sound)
@@ -44,5 +50,32 @@ public class SoundManager : Singleton<SoundManager>
                 sfx.PlayOneShot(death);
                 break;
         }
+    }
+
+    public void updateState(bool music, bool effects)
+    {
+        sfx.enabled = effects;
+        bg.enabled = music;
+    }
+
+    public void setState()
+    {
+        if (PlayerPrefs.GetInt("isMusicOn", 1) == 1)
+        {
+            isMusicOn = true;
+        }
+        else if (PlayerPrefs.GetInt("isMusicOn", 1) == 0)
+        {
+            isMusicOn = false;
+        }
+        if (PlayerPrefs.GetInt("isSoundOn", 1) == 1)
+        {
+            isSFXOn = true;
+        }
+        else if (PlayerPrefs.GetInt("isSoundOn", 1) == 0)
+        {
+            isSFXOn = false;
+        }
+        updateState(isMusicOn, isSFXOn);
     }
 }

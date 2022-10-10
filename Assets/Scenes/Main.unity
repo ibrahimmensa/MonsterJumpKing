@@ -12374,7 +12374,7 @@ GameObject:
   - component: {fileID: 889346433}
   - component: {fileID: 889346432}
   m_Layer: 5
-  m_Name: Vibrations
+  m_Name: SFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15159,7 +15159,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: VIBRATIONS
+  m_Text: SFX
 --- !u!222 &1115250110
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15617,7 +15617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicToggle: {fileID: 0}
-  vibrationToggle: {fileID: 0}
+  SFXToggle: {fileID: 0}
 --- !u!114 &1181928664
 MonoBehaviour:
   m_ObjectHideFlags: 0
