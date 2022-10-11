@@ -8622,7 +8622,7 @@ MonoBehaviour:
   moveSlider: 0
   sliderMinValue: -100
   sliderMaxValue: 100
-  sliderSpeed: 0.5
+  sliderSpeed: 2.5
   jumpPower: 0
   increaseSlider: 0
   decreaseSlider: 0
