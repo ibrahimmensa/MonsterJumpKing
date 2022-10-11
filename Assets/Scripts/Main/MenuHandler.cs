@@ -32,6 +32,7 @@ public class MenuHandler : Singleton<MenuHandler>
         {
             case MenuStates.MAINMENU:
                 mainMenu.gameObject.SetActive(true);
+                mainMenu.GetComponent<MainMenu>().updateStats();
                 currentState = MenuStates.MAINMENU;
                 break;
 

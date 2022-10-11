@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("start called");
         coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
         gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
     }
@@ -22,6 +23,7 @@ public class MainMenu : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("enable called");
         coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
         gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
         GoogleAdsManager.Instance.RequestBanner();
