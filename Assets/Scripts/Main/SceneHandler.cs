@@ -48,6 +48,7 @@ public class SceneHandler : Singleton<SceneHandler>
         isGamePlay = true;
         Lives = 3;
         int tutorialShown = PlayerPrefs.GetInt("isTutorialShown", 0);
+        MenuHandler.Instance.gamePlayUIHandler.gameObject.SetActive(true);
         if (tutorialShown == 0)
         {
             //showTutorial

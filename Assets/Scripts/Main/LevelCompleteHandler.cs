@@ -49,6 +49,7 @@ public class LevelCompleteHandler : MonoBehaviour
         SceneHandler.Instance.backToMenu();
         gameObject.SetActive(false);
         AdsInitializer.Instance.ShowAdInterstitial();
+        SceneHandler.Instance.levelHandler.increaseLevelNumber();
         saveReward();
     }
 

@@ -70,7 +70,7 @@ public class PlatformSpawner : MonoBehaviour
                 allSpawnedPlatforms.Add(temp);
             }
         }
-        float finalPlatformDistance = UnityEngine.Random.Range(minDistance + 1, maxDistance);
+        float finalPlatformDistance = UnityEngine.Random.Range(minDistance + 2, maxDistance + 1);
         if (SceneHandler.Instance.levelHandler.DifficultyNumber > 3)
         {
             //Debug.Log("In level 3");

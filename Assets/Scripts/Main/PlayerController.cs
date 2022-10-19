@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.playOnce(SoundEffects.JUMP);
             rb.AddForce(new Vector2(0.75f, 2.5f) * MenuHandler.Instance.gamePlayUIHandler.jumpPower / 25f, ForceMode2D.Impulse);
             anim.SetTrigger("jump");
+            isGrounded = false;
             //rb.velocity = new Vector2(0.75f, 2f) * MenuHandler.Instance.gamePlayUIHandler.jumpPower / 17f;
         }
     }
@@ -177,11 +178,24 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "platform")
+        {
+            isGrounded = true;
+            MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+            if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+            {
+                SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+            }
+        }
+    }
 
     public void die()
     {
         if (!SceneHandler.Instance.isGamePlay)
             return;
+        MenuHandler.Instance.gamePlayUIHandler.gameObject.SetActive(false);
         SceneHandler.Instance.coinsBeforeFall = coinsCollected;
         rb.AddForce(Vector3.up, ForceMode2D.Impulse);
         GetComponent<CapsuleCollider2D>().enabled = false;

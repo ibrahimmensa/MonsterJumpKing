@@ -69,9 +69,12 @@ public class CharacterSelection : MonoBehaviour
     }
     public void SelectCharacter()
     {
-        SceneHandler.Instance.selectedPlayerNumber = currentCharacter;
-        onClickBack();
-        PlayerPrefs.SetInt("SelectedCharacter", currentCharacter);
+        if (CharactersList[currentCharacter].GetComponent<CharacterBuying>().Bought)
+        {
+            SceneHandler.Instance.selectedPlayerNumber = currentCharacter;
+            onClickBack();
+            PlayerPrefs.SetInt("SelectedCharacter", currentCharacter);
+        }
     }
 
     public void onClickBack()

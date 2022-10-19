@@ -703,6 +703,8 @@ MonoBehaviour:
   CharacterNumber: 8
   RequiredAssetAmount: 20
   RequiredAssetType: G
+  Bought: 0
+  Child: {fileID: 798914249}
 --- !u!1 &34697126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1779,6 +1781,8 @@ MonoBehaviour:
   CharacterNumber: 2
   RequiredAssetAmount: 1100
   RequiredAssetType: C
+  Bought: 0
+  Child: {fileID: 1682989650}
 --- !u!1 &160816834
 GameObject:
   m_ObjectHideFlags: 0
@@ -13168,6 +13172,8 @@ MonoBehaviour:
   CharacterNumber: 3
   RequiredAssetAmount: 2900
   RequiredAssetType: C
+  Bought: 0
+  Child: {fileID: 1278505893}
 --- !u!1 &912036352
 GameObject:
   m_ObjectHideFlags: 0
@@ -13597,7 +13603,6 @@ MonoBehaviour:
   - {fileID: 2134468859}
   - {fileID: 32539147}
   buttons:
-  - {fileID: 1027168656}
   - {fileID: 1016759239}
 --- !u!114 &932624062
 MonoBehaviour:
@@ -14108,6 +14113,8 @@ MonoBehaviour:
   CharacterNumber: 6
   RequiredAssetAmount: 16
   RequiredAssetType: G
+  Bought: 0
+  Child: {fileID: 1672047797}
 --- !u!1 &1016759239
 GameObject:
   m_ObjectHideFlags: 0
@@ -14631,7 +14638,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1027168657
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16944,6 +16951,8 @@ MonoBehaviour:
   CharacterNumber: 1
   RequiredAssetAmount: 350
   RequiredAssetType: C
+  Bought: 0
+  Child: {fileID: 1784072151}
 --- !u!1 &1230404410
 GameObject:
   m_ObjectHideFlags: 0
@@ -19120,6 +19129,8 @@ MonoBehaviour:
   CharacterNumber: 4
   RequiredAssetAmount: 7000
   RequiredAssetType: C
+  Bought: 0
+  Child: {fileID: 1371707877}
 --- !u!1 &1415624988
 GameObject:
   m_ObjectHideFlags: 0
@@ -26175,6 +26186,8 @@ MonoBehaviour:
   CharacterNumber: 5
   RequiredAssetAmount: 15000
   RequiredAssetType: C
+  Bought: 0
+  Child: {fileID: 545640878}
 --- !u!1 &2035027244
 GameObject:
   m_ObjectHideFlags: 0
@@ -27736,6 +27749,8 @@ MonoBehaviour:
   CharacterNumber: 7
   RequiredAssetAmount: 18
   RequiredAssetType: G
+  Bought: 0
+  Child: {fileID: 502268771}
 --- !u!1 &2139341005
 GameObject:
   m_ObjectHideFlags: 0
