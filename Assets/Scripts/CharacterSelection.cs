@@ -6,6 +6,7 @@ public class CharacterSelection : MonoBehaviour
 {
     public List<GameObject> CharactersList;
     int currentCharacter;
+    public List<GameObject> buttons;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,10 +47,12 @@ public class CharacterSelection : MonoBehaviour
         if(forward)
         {
             currentCharacter = (i + 1) % CharactersList.Count;
+            FirstCHaracterButtons();
         }
         else
         {
-            currentCharacter = Mathf.Abs((i - 1) % CharactersList.Count);
+            currentCharacter = Mathf.Abs((i + 8) % CharactersList.Count);
+            FirstCHaracterButtons();
         }
     }
     public void FindActiveCharacter()
@@ -61,6 +64,8 @@ public class CharacterSelection : MonoBehaviour
                 currentCharacter = i;
             }
         }
+            FirstCHaracterButtons();
+        
     }
     public void SelectCharacter()
     {
@@ -76,5 +81,29 @@ public class CharacterSelection : MonoBehaviour
     public void BuyPlayer()
     {
         CharactersList[currentCharacter].GetComponent<CharacterBuying>().BuyPlayer();
+    }
+    public void FirstCHaracterButtons()
+    {
+        if(currentCharacter == 0)
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].SetActive(false);
+            }
+        }
+        else if(CharactersList[currentCharacter].GetComponent<CharacterBuying>().Bought)
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].SetActive(false);
+            }  
+        }
+        else
+        {
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons[i].SetActive(true);
+            }
+        }
     }
 }

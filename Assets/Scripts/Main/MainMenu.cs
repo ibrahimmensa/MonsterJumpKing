@@ -26,6 +26,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log("enable called");
         coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
         gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
+        Invoke("updateStats", 2f);
         GoogleAdsManager.Instance.RequestBanner();
     }
 

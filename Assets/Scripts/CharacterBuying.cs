@@ -8,16 +8,19 @@ public class CharacterBuying : MonoBehaviour
     public string CharacterNumber;
     public int RequiredAssetAmount;
     public string RequiredAssetType;
+    public bool Bought;
     // Start is called before the first frame update
     void Start()
     {
         if(PlayerPrefs.GetString(CharacterNumber,"false") == "false")
         {
             gameObject.GetComponent<Image>().color = new Color(0.33f, 0.33f, 0.33f);
+            Bought = false;
         }
         else
         {
             gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
+            Bought = true;
         }
     }
 
@@ -33,6 +36,7 @@ public class CharacterBuying : MonoBehaviour
             if(PlayerPrefs.GetInt("Gems", 0) > RequiredAssetAmount)
             {
                 PlayerPrefs.SetString(CharacterNumber, "true");
+                Bought = true;
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems", 0) - RequiredAssetAmount);
             }
@@ -46,6 +50,7 @@ public class CharacterBuying : MonoBehaviour
             if (PlayerPrefs.GetInt("Coins", 0) > RequiredAssetAmount)
             {
                 PlayerPrefs.SetString(CharacterNumber, "true");
+                Bought = true;
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Gems", 0) - RequiredAssetAmount);
             }

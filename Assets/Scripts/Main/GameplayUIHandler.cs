@@ -12,6 +12,7 @@ public class GameplayUIHandler : MonoBehaviour
     public float sliderMinValue, sliderMaxValue, sliderSpeed, jumpPower;
     public bool increaseSlider = false, decreaseSlider = false;
     public Text LivesText;
+    public List<GameObject> TutroialObjects;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,5 +63,16 @@ public class GameplayUIHandler : MonoBehaviour
     public void updateUI(int coinText)
     {
         coinCount.text = coinText.ToString();
+    }
+    public void TurnOffTutorial()
+    {
+        for (int i = 0; i < TutroialObjects.Count; i++)
+        {
+            TutroialObjects[i].SetActive(false);
+        }
+    }
+    public void TapToPlayTutorial()
+    {
+        SceneHandler.Instance.startLevel();
     }
 }

@@ -51,17 +51,22 @@ public class SceneHandler : Singleton<SceneHandler>
         if (tutorialShown == 0)
         {
             //showTutorial
+            PlayerPrefs.SetInt("isTutorialShown", 1);
+            MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
+            platformSpawner.spawnPlatformForLevel();
+            SoundManager.Instance.bg.Play();
         }
         else
         {
-            
+            MenuHandler.Instance.gamePlayUIHandler.TurnOffTutorial();
+            MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
+            platformSpawner.spawnPlatformForLevel();
+            spawnPlayer();
+            SoundManager.Instance.bg.Play();
+            isRevivedOnce = false;
         }
 
-        MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
-        platformSpawner.spawnPlatformForLevel();
-        spawnPlayer();
-        SoundManager.Instance.bg.Play();
-        isRevivedOnce = false;
+        
     }
 
     public void spawnPlayer()
@@ -85,6 +90,7 @@ public class SceneHandler : Singleton<SceneHandler>
         platformSpawner.clearAllPlatforms();
         Destroy(spawnedPlayer);
         MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
+        MenuHandler.Instance.mainMenu.updateStats();
         SoundManager.Instance.bg.Stop();
     }
 

@@ -7,6 +7,7 @@ public class SettingsMenu : MonoBehaviour
 {
     public Toggle musicToggle;
     public Toggle SFXToggle;
+    public GameObject musicOn, sfxOn;
     bool isSoundOn = true;
     bool isMusicOn = true;
     // Start is called before the first frame update
@@ -52,11 +53,13 @@ public class SettingsMenu : MonoBehaviour
         if (musicToggle.isOn)
         {
             isMusicOn = true;
+            musicOn.SetActive(true);
             PlayerPrefs.SetInt("isMusicOn", 1);
         }
         else
         {
             isMusicOn = false;
+            musicOn.SetActive(false);
             PlayerPrefs.SetInt("isMusicOn", 0);
         }
         SoundManager.Instance.updateState(isMusicOn, isSoundOn);
@@ -70,11 +73,13 @@ public class SettingsMenu : MonoBehaviour
         if (SFXToggle.isOn)
         {
             isSoundOn = true;
+            sfxOn.SetActive(true);
             PlayerPrefs.SetInt("isSoundOn", 1);
         }
         else
         {
             isSoundOn = false;
+            sfxOn.SetActive(false);
             PlayerPrefs.SetInt("isSoundOn", 0);
         }
         SoundManager.Instance.updateState(isMusicOn, isSoundOn);
