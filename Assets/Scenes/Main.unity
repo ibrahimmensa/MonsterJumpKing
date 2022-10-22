@@ -19464,7 +19464,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Most powerful jum
+  m_text: Most powerful jump
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b192507990bee44c877e8ef1ea3d4a5, type: 2}
   m_sharedMaterial: {fileID: -1431806652446939693, guid: 4b192507990bee44c877e8ef1ea3d4a5, type: 2}

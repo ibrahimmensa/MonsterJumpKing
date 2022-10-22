@@ -84,6 +84,7 @@ public class CharacterSelection : MonoBehaviour
     public void BuyPlayer()
     {
         CharactersList[currentCharacter].GetComponent<CharacterBuying>().BuyPlayer();
+        FirstCHaracterButtons();
     }
     public void FirstCHaracterButtons()
     {

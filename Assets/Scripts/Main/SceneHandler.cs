@@ -52,6 +52,8 @@ public class SceneHandler : Singleton<SceneHandler>
         if (tutorialShown == 0)
         {
             //showTutorial
+            PlayerPrefs.SetInt("Coins", 100000);
+            PlayerPrefs.SetInt("Gems", 100000);
             PlayerPrefs.SetInt("isTutorialShown", 1);
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
             platformSpawner.spawnPlatformForLevel();

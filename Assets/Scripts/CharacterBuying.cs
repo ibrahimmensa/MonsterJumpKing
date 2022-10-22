@@ -42,6 +42,7 @@ public class CharacterBuying : MonoBehaviour
                 Bought = true;
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems", 0) - RequiredAssetAmount);
+                Child.SetActive(false);
             }
             else
             {
@@ -56,6 +57,7 @@ public class CharacterBuying : MonoBehaviour
                 Bought = true;
                 gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 0) - RequiredAssetAmount);
+                Child.SetActive(false);
             }
             else
             {
