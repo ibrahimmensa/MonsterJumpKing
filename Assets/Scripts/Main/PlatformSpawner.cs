@@ -53,18 +53,28 @@ public class PlatformSpawner : MonoBehaviour
             float nextPlatformDistance = UnityEngine.Random.Range(minDistance, maxDistance);
             if (SceneHandler.Instance.levelHandler.DifficultyNumber > 3)
             {
+                Debug.Log("Spawning platform");
                 //Debug.Log("In level 3");
-                float nextPlatformHeight = UnityEngine.Random.Range(-2, 2);
+                //float nextPlatformHeight = UnityEngine.Random.Range(-2, 2);
                 int platformIndex = UnityEngine.Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
-                GameObject temp = Instantiate(allPlatforms[environmentNumber].allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y + nextPlatformHeight, 0), Quaternion.identity, platformParent);
+                if (platformIndex > 2)
+                {
+                    platformIndex = 2;
+                }
+                GameObject temp = Instantiate(allPlatforms[environmentNumber].allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y, 0), Quaternion.identity, platformParent);
                 previousPlatform = temp;
                 allSpawnedPlatforms.Add(temp);
             }
             else
             {
+                Debug.Log("Spawning platform2");
                 //Debug.Log("In level 1");
                 //float nextPlatformHeight = Random.Range(-3, 3);
                 int platformIndex = UnityEngine.Random.Range(0, SceneHandler.Instance.levelHandler.DifficultyNumber);
+                if (platformIndex > 2)
+                {
+                    platformIndex = 2;
+                }
                 GameObject temp = Instantiate(allPlatforms[environmentNumber].allPlatforms[platformIndex], new Vector3(previousPlatform.transform.position.x + nextPlatformDistance, previousPlatform.transform.position.y, 0), Quaternion.identity, platformParent);
                 previousPlatform = temp;
                 allSpawnedPlatforms.Add(temp);

@@ -52,11 +52,11 @@ public class SceneHandler : Singleton<SceneHandler>
         if (tutorialShown == 0)
         {
             //showTutorial
-            PlayerPrefs.SetInt("Coins", 100000);
-            PlayerPrefs.SetInt("Gems", 100000);
+            //PlayerPrefs.SetInt("Coins", 0);
+            //PlayerPrefs.SetInt("Gems", 0);
             PlayerPrefs.SetInt("isTutorialShown", 1);
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
-            platformSpawner.spawnPlatformForLevel();
+            //platformSpawner.spawnPlatformForLevel();
             SoundManager.Instance.bg.Play();
         }
         else

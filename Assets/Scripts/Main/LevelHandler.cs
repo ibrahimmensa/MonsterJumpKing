@@ -9,8 +9,11 @@ public class LevelHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //PlayerPrefs.DeleteAll();
         levelNumber = PlayerPrefs.GetInt("LevelNumber", 1);
         DifficultyNumber = PlayerPrefs.GetInt("DifficultyNumber", 1);
+        //levelNumber = 9;
+        //DifficultyNumber = 3;
     }
 
     // Update is called once per frame
