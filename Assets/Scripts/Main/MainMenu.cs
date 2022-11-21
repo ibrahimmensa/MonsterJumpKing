@@ -27,12 +27,14 @@ public class MainMenu : MonoBehaviour
         coinsText.text = PlayerPrefs.GetInt("Coins", 0).ToString();
         gemsText.text = PlayerPrefs.GetInt("Gems", 0).ToString();
         Invoke("updateStats", 2f);
-        GoogleAdsManager.Instance.RequestBanner();
+        if (PlayerPrefs.GetInt("AdsRemoved", 0) == 0)
+            GoogleAdsManager.Instance.RequestBanner();
     }
 
-    public void onClickPlay()
+    public void onClickPlay(int envNo)
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        SceneHandler.Instance.platformSpawner.environmentNumber = envNo;
         SceneHandler.Instance.startLevel();
         MenuHandler.Instance.switchMenu(MenuStates.GAMEPLAY);
         GoogleAdsManager.Instance.destroyBanner();
@@ -48,6 +50,12 @@ public class MainMenu : MonoBehaviour
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.switchMenu(MenuStates.SHOP);
+    }
+
+    public void onClickEnvironmentSelection()
+    {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        MenuHandler.Instance.switchMenu(MenuStates.ENVIRONMENTSELECTION);
     }
 
     public void onClickNoAds()

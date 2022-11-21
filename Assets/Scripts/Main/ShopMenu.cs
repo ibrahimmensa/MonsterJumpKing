@@ -18,6 +18,7 @@ public class ShopMenu : MonoBehaviour
 
     public void onClickBack()
     {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
     }
 

@@ -11,6 +11,9 @@ public class LevelCompleteHandler : MonoBehaviour
     public int totalCoins;
     public int totalGems;
     public Button rewardBtn;
+    public Image happyCharacter;
+    public Sprite[] happyCharacters;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +28,7 @@ public class LevelCompleteHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        happyCharacter.sprite = happyCharacters[SceneHandler.Instance.selectedPlayerNumber];
         SoundManager.Instance.bg.Stop();
         levelNumber.text = "Level " + SceneHandler.Instance.levelHandler.levelNumber.ToString();
         totalCoins = (SceneHandler.Instance.spawnedPlayer.GetComponent<PlayerController>().coinsCollected + 100);
@@ -48,7 +51,8 @@ public class LevelCompleteHandler : MonoBehaviour
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.backToMenu();
         gameObject.SetActive(false);
-        AdsInitializer.Instance.ShowAdInterstitial();
+        if (PlayerPrefs.GetInt("AdsRemoved", 0) == 0)
+            AdsInitializer.Instance.ShowAdInterstitial();
         SceneHandler.Instance.levelHandler.increaseLevelNumber();
         saveReward();
     }
@@ -60,7 +64,8 @@ public class LevelCompleteHandler : MonoBehaviour
         SceneHandler.Instance.levelHandler.increaseLevelNumber();
         SceneHandler.Instance.restartLevel();
         gameObject.SetActive(false);
-        AdsInitializer.Instance.ShowAdInterstitial();
+        if (PlayerPrefs.GetInt("AdsRemoved", 0) == 0)
+            AdsInitializer.Instance.ShowAdInterstitial();
         saveReward();
     }
 

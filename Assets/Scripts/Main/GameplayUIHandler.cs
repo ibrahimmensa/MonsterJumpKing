@@ -54,10 +54,11 @@ public class GameplayUIHandler : MonoBehaviour
 
     public void onClickPause()
     {
+        SceneHandler.Instance.isPause = true;
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.pauseMenuHandler.gameObject.SetActive(true);
         moveSlider = false;
-        //Time.timeScale = 0;
+        Time.timeScale = 0;
     }
 
     public void updateUI(int coinText)

@@ -9,7 +9,8 @@ public class BirdController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(this, 20f);
+        Invoke("spawnEgg", 1);
     }
 
     private void OnEnable()
@@ -20,7 +21,8 @@ public class BirdController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(-1f, 0, 0) * Time.deltaTime);
+        if(!SceneHandler.Instance.isPause)
+            transform.Translate(new Vector3(-0.8f, 0, 0) * Time.deltaTime);
     }
 
     public void spawnEgg()
@@ -30,7 +32,16 @@ public class BirdController : MonoBehaviour
 
     IEnumerator spawnEggWithDelay()
     {
-        yield return new WaitForSeconds(2);
+        int totalWait = Random.Range(2, 7);
+        float wait = 0;
+        while (wait < totalWait)
+        {
+            yield return new WaitForSeconds(0.25f);
+            if (!SceneHandler.Instance.isPause)
+            {
+                wait += 0.25f;
+            }
+        }
         Instantiate(eggPrefab, eggSpawnPosition.transform.position, eggSpawnPosition.transform.rotation);
     }
 

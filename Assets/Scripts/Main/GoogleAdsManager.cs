@@ -7,12 +7,15 @@ using System;
 public class GoogleAdsManager : Singleton<GoogleAdsManager>
 {
     private BannerView bannerView;
+    public List<BannerView> allBanners= new List<BannerView>();
+
     public void Start()
     {
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(initStatus => { });
 
-        this.RequestBanner();
+        if (PlayerPrefs.GetInt("AdsRemoved", 0) == 0)
+            this.RequestBanner();
         RequestInterstitial();
     }
 
@@ -34,11 +37,24 @@ public class GoogleAdsManager : Singleton<GoogleAdsManager>
 
         // Load the banner with the request.
         this.bannerView.LoadAd(request);
+
+        allBanners.Add(this.bannerView);
     }
 
     public void destroyBanner()
     {
-        bannerView.Destroy();
+        if(bannerView!=null)
+            bannerView.Destroy();
+    }
+
+    public void destroyAllBanners()
+    {
+        while(allBanners.Count>0)
+        {
+            BannerView temp = allBanners[0];
+            allBanners.RemoveAt(0);
+            temp.Destroy();
+        }
     }
     #endregion
 
@@ -75,10 +91,12 @@ public class GoogleAdsManager : Singleton<GoogleAdsManager>
 
     public void showInterstitial()
     {
-        if (this.interstitial.IsLoaded())
-        {
-            this.interstitial.Show();
-        }
+
+        if (PlayerPrefs.GetInt("AdsRemoved", 0) == 0)
+            if (this.interstitial.IsLoaded())
+            {
+                this.interstitial.Show();
+            }
     }
 
 

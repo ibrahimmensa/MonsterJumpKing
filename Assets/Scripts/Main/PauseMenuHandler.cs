@@ -18,6 +18,9 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void onClickRestart()
     {
+        Time.timeScale = 2;
+        SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
+        SceneHandler.Instance.isPause = false;
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.restartLevel();
         this.gameObject.SetActive(false);
@@ -26,6 +29,9 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void onClickHome()
     {
+        Time.timeScale = 2;
+        SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
+        SceneHandler.Instance.isPause = false;
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.backToMenu();
         this.gameObject.SetActive(false);
@@ -34,6 +40,8 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void onClickResume()
     {
+        Time.timeScale = 2;
+        SceneHandler.Instance.isPause = false;
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         this.gameObject.SetActive(false);
         MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;

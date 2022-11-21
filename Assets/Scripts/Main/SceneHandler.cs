@@ -9,7 +9,8 @@ public enum MenuStates
     SETTINGS,
     SHOP,
     GAMEPLAY,
-    CHARACTERSELECTION
+    CHARACTERSELECTION,
+    ENVIRONMENTSELECTION
 }
 
 public class SceneHandler : Singleton<SceneHandler>
@@ -28,6 +29,8 @@ public class SceneHandler : Singleton<SceneHandler>
     public bool isRevivedOnce = false;
     public bool gotDoubleReward = false;
     public int Lives = 3;
+    public bool isPause = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +38,7 @@ public class SceneHandler : Singleton<SceneHandler>
         {
             //PlayerPrefs.DeleteAll();
         }
+        Debug.Log(Time.timeScale);
     }
 
     // Update is called once per frame
@@ -113,6 +117,19 @@ public class SceneHandler : Singleton<SceneHandler>
         }
         MenuHandler.Instance.levelFailHandler.reviveBtn.interactable = false;
         SoundManager.Instance.bg.Play();
+        if (levelHandler.levelNumber > 6)
+        {
+            Debug.Log("In level 3");
+            if (levelHandler.levelNumber % 3 == 0)
+            {
+                if (platformSpawner.environmentNumber == 0)
+                    cam.GetComponent<CameraFollow>().spawnBirdHurdle();
+                else if (platformSpawner.environmentNumber == 1)
+                    cam.GetComponent<CameraFollow>().spawnSnowBallHurdle();
+                else if (platformSpawner.environmentNumber == 2)
+                    cam.GetComponent<CameraFollow>().spawnFireBallHurdle();
+            }
+        }
     }
 
 

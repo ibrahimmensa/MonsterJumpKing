@@ -1,21 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterSelection : MonoBehaviour
 {
     public List<GameObject> CharactersList;
-    int currentCharacter;
-    public List<GameObject> buttons;
+    public int currentCharacter;
+    public GameObject unlockButton;
+    public GameObject AdsButton;
+    public GameObject SelectButton;
+    public GameObject SelectedButton;
+
     // Start is called before the first frame update
     void Start()
     {
+        EnableAll();
+        Invoke("setUpCharacterScreen", 0.01f);
+    }
+
+    void setUpCharacterScreen()
+    {
+        DisbaleAll();
+        for(int i = 0; i < CharactersList.Count; i++)
+        {
+            CharactersList[i].GetComponent<Image>().enabled = true;
+        }
+        currentCharacter = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        CharactersList[currentCharacter].SetActive(true);
         FindActiveCharacter();
     }
 
     private void OnEnable()
     {
-        currentCharacter = PlayerPrefs.GetInt("SelectedCharacter", 0);
+        EnableAll();
+        Invoke("setUpCharacterScreen", 0.01f);
     }
 
     // Update is called once per frame
@@ -42,6 +61,16 @@ public class CharacterSelection : MonoBehaviour
             CharactersList[i].SetActive(false);
         }
     }
+
+    public void EnableAll()
+    {
+        for (int i = 0; i < CharactersList.Count; i++)
+        {
+            CharactersList[i].SetActive(true);
+            CharactersList[i].GetComponent<Image>().enabled = false;
+        }
+    }
+
     public void AssignCurrentCharacter(int i, bool forward)
     {
         if(forward)
@@ -64,12 +93,12 @@ public class CharacterSelection : MonoBehaviour
                 currentCharacter = i;
             }
         }
-            FirstCHaracterButtons();
+        FirstCHaracterButtons();
         
     }
     public void SelectCharacter()
     {
-        if (CharactersList[currentCharacter].GetComponent<CharacterBuying>().Bought)
+        if (currentCharacter == 0 || CharactersList[currentCharacter].GetComponent<CharacterBuying>().Bought)
         {
             SceneHandler.Instance.selectedPlayerNumber = currentCharacter;
             onClickBack();
@@ -79,6 +108,7 @@ public class CharacterSelection : MonoBehaviour
 
     public void onClickBack()
     {
+        SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
     }
     public void BuyPlayer()
@@ -90,24 +120,40 @@ public class CharacterSelection : MonoBehaviour
     {
         if(currentCharacter == 0)
         {
-            for (int i = 0; i < buttons.Count; i++)
+            unlockButton.SetActive(false);
+            AdsButton.SetActive(false);
+            if (currentCharacter == PlayerPrefs.GetInt("SelectedCharacter", 0))
             {
-                buttons[i].SetActive(false);
+                SelectedButton.SetActive(true);
+                SelectButton.SetActive(false);
+            }
+            else
+            {
+                SelectedButton.SetActive(false);
+                SelectButton.SetActive(true);
             }
         }
         else if(CharactersList[currentCharacter].GetComponent<CharacterBuying>().Bought)
         {
-            for (int i = 0; i < buttons.Count; i++)
+            unlockButton.SetActive(false);
+            AdsButton.SetActive(false);
+            if (currentCharacter == PlayerPrefs.GetInt("SelectedCharacter", 0))
             {
-                buttons[i].SetActive(false);
-            }  
+                SelectedButton.SetActive(true);
+                SelectButton.SetActive(false);
+            }
+            else
+            {
+                SelectedButton.SetActive(false);
+                SelectButton.SetActive(true);
+            }
         }
         else
         {
-            for (int i = 0; i < buttons.Count; i++)
-            {
-                buttons[i].SetActive(true);
-            }
+            unlockButton.SetActive(true);
+            AdsButton.SetActive(true);
+            SelectedButton.SetActive(false);
+            SelectButton.SetActive(false);
         }
     }
 }

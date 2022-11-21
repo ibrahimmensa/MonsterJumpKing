@@ -18,34 +18,35 @@ public class platformHandler : MonoBehaviour
         
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Player")
-        {
-            switch (platformType)
-            {
-                case PlatformType.BASIC:
-                    break;
-                case PlatformType.ICE:
-                    break;
-                case PlatformType.ICEMOVING:
-                    break;
-                case PlatformType.LAVA:
-                    break;
-                case PlatformType.MOVING:
-                    break;
-            }
-        }
+        //if (collision.transform.tag == "Player")
+        //{
+        //    switch (platformType)
+        //    {
+        //        case PlatformType.BASIC:
+        //            break;
+        //        case PlatformType.MOVING:
+        //            collision.transform.parent = null;
+        //            break;
+        //    }
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Player")
-        {
-            if (platformType == PlatformType.FINALPLATFORM)
-            {
-                //levelComplete
-            }
-        }
+        //if (collision.transform.tag == "Player")
+        //{
+        //    Debug.Log("player enter");
+        //    switch (platformType)
+        //    {
+        //        case PlatformType.BASIC:
+        //            break;
+        //        case PlatformType.MOVING:
+        //            Debug.Log("yes parent");
+        //            collision.transform.parent = GetComponentsInChildren<GameObject>()[0].transform;
+        //            break;
+        //    }
+        //}
     }
 }

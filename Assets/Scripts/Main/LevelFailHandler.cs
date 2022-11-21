@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class LevelFailHandler : MonoBehaviour
 {
     public Button reviveBtn;
+    public Image sadCharacter;
+    public Sprite[] sadCharacters;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,7 @@ public class LevelFailHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        sadCharacter.sprite = sadCharacters[SceneHandler.Instance.selectedPlayerNumber];
         SoundManager.Instance.bg.Stop();
         if (SceneHandler.Instance.isRevivedOnce)
         {
@@ -44,7 +47,8 @@ public class LevelFailHandler : MonoBehaviour
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
         SceneHandler.Instance.backToMenu();
         gameObject.SetActive(false);
-        AdsInitializer.Instance.ShowAdInterstitial();
+        if (PlayerPrefs.GetInt("AdsRemoved", 0) == 0)
+            AdsInitializer.Instance.ShowAdInterstitial();
     }
 
     public void onClickRevive()

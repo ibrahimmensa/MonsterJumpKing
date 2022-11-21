@@ -76,6 +76,7 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             if (collision.transform.parent.name.Contains("FinalPlatform"))
             {
+                SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
                 MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
                 Debug.Log("Level Completed");
             }
@@ -113,7 +114,8 @@ public class PlayerController : MonoBehaviour
         if (collision.transform.tag == "platform")
         {
             isGrounded = false;
-            MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
+            MenuHandler.Instance.gamePlayUIHandler.moveSlider = false; 
+            transform.parent = null;
         }
     }
 
@@ -162,6 +164,7 @@ public class PlayerController : MonoBehaviour
             SceneHandler.Instance.isGamePlay = false;
             SoundManager.Instance.playOnce(SoundEffects.LEVELCOMPLETE);
             MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
+            SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
         }
         else if (collision.transform.tag == "platform")
         {
@@ -170,6 +173,15 @@ public class PlayerController : MonoBehaviour
             if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
             {
                 SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+            }
+            switch (collision.transform.parent.gameObject.GetComponent<platformHandler>().platformType)
+            {
+                case PlatformType.BASIC:
+                    break;
+                case PlatformType.MOVING:
+                    Debug.Log("yes parent");
+                    transform.parent = collision.transform;
+                    break;
             }
         }
         else if (collision.tag == "coin")
@@ -207,6 +219,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(2);
         MenuHandler.Instance.gamePlayUIHandler.moveSlider = false;
         MenuHandler.Instance.levelFailHandler.gameObject.SetActive(true);
+        SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
         //this.gameObject.SetActive(false);
         Destroy(this.gameObject);
     }
