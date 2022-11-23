@@ -17,6 +17,7 @@ public class platformCategory
 
 public class PlatformSpawner : MonoBehaviour
 {
+    public int[] numberOfPlatformsAccToLevelNum;
     public platformCategory[] allPlatforms;
     public GameObject[] lastPlatform;
     public GameObject[] initialPlatform;
@@ -46,7 +47,23 @@ public class PlatformSpawner : MonoBehaviour
         previousPlatform = Instantiate(initialPlatform[environmentNumber], initialPlatformPosition, Quaternion.identity, platformParent);
         allSpawnedPlatforms.Add(previousPlatform);
         int levelNumber = SceneHandler.Instance.levelHandler.levelNumber;
-        int platformCount = (levelNumber * 2) + 2;
+        int platformCount=0;
+        if (levelNumber < numberOfPlatformsAccToLevelNum.Length)
+        {
+            platformCount = numberOfPlatformsAccToLevelNum[levelNumber];
+        }
+        else
+        {
+            if (levelNumber % 3 == 0)
+            {
+                platformCount = UnityEngine.Random.Range(12, 15);
+            }
+            else
+            {
+                platformCount = UnityEngine.Random.Range(16, 21);
+            }
+        }
+        //int platformCount = (levelNumber * 2) + 2;
         for (int i = 0; i < platformCount; i++)
         {
             float nextPlatformDistance = UnityEngine.Random.Range(minDistance, maxDistance);

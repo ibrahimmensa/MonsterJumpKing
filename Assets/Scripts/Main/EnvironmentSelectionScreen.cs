@@ -12,8 +12,9 @@ public class EnvironmentSelectionScreen : MonoBehaviour
 
     public TweenPosition tween;
 
-    public GameObject playButtonEnv2;
-    public GameObject playButtonEnv3;
+    public Image env2Play;
+    public Image env3Play;
+
     public GameObject cantPlayPopup;
     public TMPro.TextMeshProUGUI cantPlayText;
 
@@ -26,34 +27,23 @@ public class EnvironmentSelectionScreen : MonoBehaviour
 
     private void OnEnable()
     {
-        if (selectedEnv == 1)
+        if (SceneHandler.Instance.levelHandler.levelNumber <= 10)
         {
-            if (SceneHandler.Instance.levelHandler.levelNumber < 10)
-            {
-                playButtonEnv2.GetComponent<Button>().interactable = false;
-                cantPlayPopup.SetActive(true);
-                cantPlayText.text = "COMPLETE 10 LEVELS TO UNLOCK";
-            }
-            else
-            {
-                playButtonEnv2.GetComponent<Button>().interactable = true;
-                cantPlayPopup.SetActive(false);
-            }
+            env2Play.color = new Color(0.33f, 0.33f, 0.33f);
         }
-        else if (selectedEnv == 2)
+        else
         {
-            if (SceneHandler.Instance.levelHandler.levelNumber < 15)
-            {
-                playButtonEnv3.GetComponent<Button>().interactable = false;
-                cantPlayPopup.SetActive(true);
-                cantPlayText.text = "COMPLETE 15 LEVELS TO UNLOCK";
-            }
+            env2Play.color = new Color(1, 1, 1);
+        }
 
-            else
-            {
-                playButtonEnv3.GetComponent<Button>().interactable = true;
-                cantPlayPopup.SetActive(false);
-            }
+        if (PlayerPrefs.GetInt("LevelsOfEnvironment2", 0) <= 10)
+        {
+            env3Play.color = new Color(0.33f, 0.33f, 0.33f);
+        }
+
+        else
+        {
+            env3Play.color = new Color(1, 1, 1);
         }
     }
 
@@ -86,17 +76,7 @@ public class EnvironmentSelectionScreen : MonoBehaviour
                     selectedEnv = 1;
                     tween.ResetToBeginning();
                     tween.PlayForward();
-                    if (SceneHandler.Instance.levelHandler.levelNumber < 10)
-                    {
-                        playButtonEnv2.GetComponent<Button>().interactable = false;
-                        cantPlayPopup.SetActive(true);
-                        cantPlayText.text = "COMPLETE 10 LEVELS TO UNLOCK";
-                    }
-                    else
-                    {
-                        playButtonEnv2.GetComponent<Button>().interactable = true;
-                        cantPlayPopup.SetActive(false);
-                    }
+                    cantPlayPopup.SetActive(false);
                 }
             }
             else if(finalPos.x - initialPos.x < -75)
@@ -108,17 +88,7 @@ public class EnvironmentSelectionScreen : MonoBehaviour
                     selectedEnv = 1;
                     tween.ResetToBeginning();
                     tween.PlayForward();
-                    if (SceneHandler.Instance.levelHandler.levelNumber < 10)
-                    {
-                        playButtonEnv2.GetComponent<Button>().interactable = false;
-                        cantPlayPopup.SetActive(true);
-                        cantPlayText.text = "COMPLETE 10 LEVELS TO UNLOCK";
-                    }
-                    else
-                    {
-                        playButtonEnv2.GetComponent<Button>().interactable = true;
-                        cantPlayPopup.SetActive(false);
-                    }
+                    cantPlayPopup.SetActive(false);
                 }
                 else if (selectedEnv == 1)
                 {
@@ -127,17 +97,7 @@ public class EnvironmentSelectionScreen : MonoBehaviour
                     selectedEnv = 2;
                     tween.ResetToBeginning();
                     tween.PlayForward();
-                    if (SceneHandler.Instance.levelHandler.levelNumber < 15)
-                    {
-                        playButtonEnv3.GetComponent<Button>().interactable = false;
-                        cantPlayPopup.SetActive(true);
-                        cantPlayText.text = "COMPLETE 15 LEVELS TO UNLOCK";
-                    }
-                    else
-                    {
-                        playButtonEnv3.GetComponent<Button>().interactable = true;
-                        cantPlayPopup.SetActive(false);
-                    }
+                    cantPlayPopup.SetActive(false);
                 }
             }
         }
@@ -149,15 +109,33 @@ public class EnvironmentSelectionScreen : MonoBehaviour
         MenuHandler.Instance.switchMenu(MenuStates.MAINMENU);
     }
 
-    //private void OnMouseDown()
-    //{
-    //    Debug.Log("presss");
-    //    initialPos = Input.mousePosition;
-    //}
+    public void OnClickPlayEnv2()
+    {
+        if (SceneHandler.Instance.levelHandler.levelNumber <= 10)
+        {
+            cantPlayPopup.SetActive(true);
+            cantPlayText.text = "COMPLETE 10 LEVELS OF JUNGLE ENVIRONMENT TO UNLOCK";
+        }
+        else
+        {
+            cantPlayPopup.SetActive(false);
+            MenuHandler.Instance.mainMenu.onClickPlay(1);
+        }
+    }
 
-    //private void OnMouseDrag()
-    //{
-    //    finalPos = Input.mousePosition;
-    //    Debug.Log(finalPos.x - initialPos.x);
-    //}
+    public void OnClickPlayEnv3()
+    {
+        if (PlayerPrefs.GetInt("LevelsOfEnvironment2", 0) <= 10)
+        {
+            Debug.Log(PlayerPrefs.GetInt("LevelsOfEnvironment2", 0));
+            cantPlayPopup.SetActive(true);
+            cantPlayText.text = "COMPLETE 10 LEVELS OF SNOW ENVIRONMENT TO UNLOCK";
+        }
+
+        else
+        {
+            cantPlayPopup.SetActive(false);
+            MenuHandler.Instance.mainMenu.onClickPlay(2);
+        }
+    }
 }

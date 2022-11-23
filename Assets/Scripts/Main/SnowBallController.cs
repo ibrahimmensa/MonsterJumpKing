@@ -19,9 +19,13 @@ public class SnowBallController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Player")
+        if (SceneHandler.Instance.isGamePlay)
         {
-            collision.transform.GetComponent<PlayerController>().die();
+            if (collision.transform.tag == "Player")
+            {
+                collision.transform.GetComponent<PlayerController>().die();
+                collision.transform.GetComponent<PlayerController>().hasTouchedFlyingHurdle=true;
+            }
         }
     }
 }

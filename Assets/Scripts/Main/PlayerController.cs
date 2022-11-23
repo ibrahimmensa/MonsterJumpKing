@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public int coinsCollected = 0;
     public GameObject lastPlatform;
     bool HasFall = false;
+    public bool hasTouchedFlyingHurdle = false;
     
     // Start is called before the first frame update
     void Start()
@@ -76,9 +77,17 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             if (collision.transform.parent.name.Contains("FinalPlatform"))
             {
-                SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
-                MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
-                Debug.Log("Level Completed");
+                if (!hasTouchedFlyingHurdle)
+                {
+                    SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
+                    MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
+                    if (SceneHandler.Instance.platformSpawner.environmentNumber == 1)
+                    {
+                        int levelsEnv2 = PlayerPrefs.GetInt("LevelsOfEnvironment2", 0) + 1;
+                        PlayerPrefs.SetInt("LevelsOfEnvironment2", levelsEnv2);
+                    }
+                    Debug.Log("Level Completed");
+                }
             }
             else
             {
@@ -125,9 +134,12 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             //MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
-            if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+            if (collision.transform.parent.gameObject.GetComponent<platformHandler>())
             {
-                SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+                if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+                {
+                    SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+                }
             }
         }
     }
@@ -161,27 +173,38 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.transform.tag == "finalPoint" && SceneHandler.Instance.isGamePlay)
         {
-            SceneHandler.Instance.isGamePlay = false;
-            SoundManager.Instance.playOnce(SoundEffects.LEVELCOMPLETE);
-            MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
-            SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
+            if (!hasTouchedFlyingHurdle)
+            {
+                SceneHandler.Instance.isGamePlay = false;
+                if (SceneHandler.Instance.platformSpawner.environmentNumber == 1)
+                {
+                    int levelsEnv2 = PlayerPrefs.GetInt("LevelsOfEnvironment2", 0) + 1;
+                    PlayerPrefs.SetInt("LevelsOfEnvironment2", levelsEnv2);
+                }
+                SoundManager.Instance.playOnce(SoundEffects.LEVELCOMPLETE);
+                MenuHandler.Instance.levelCompleteHandler.gameObject.SetActive(true);
+                SceneHandler.Instance.cam.GetComponent<CameraFollow>().StopHurdleCoroutines();
+            }
         }
         else if (collision.transform.tag == "platform")
         {
             isGrounded = true;
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
-            if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+            if (collision.transform.parent.gameObject.GetComponent<platformHandler>())
             {
-                SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
-            }
-            switch (collision.transform.parent.gameObject.GetComponent<platformHandler>().platformType)
-            {
-                case PlatformType.BASIC:
-                    break;
-                case PlatformType.MOVING:
-                    Debug.Log("yes parent");
-                    transform.parent = collision.transform;
-                    break;
+                if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+                {
+                    SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+                }
+                switch (collision.transform.parent.gameObject.GetComponent<platformHandler>().platformType)
+                {
+                    case PlatformType.BASIC:
+                        break;
+                    case PlatformType.MOVING:
+                        Debug.Log("yes parent");
+                        transform.parent = collision.transform;
+                        break;
+                }
             }
         }
         else if (collision.tag == "coin")
@@ -196,9 +219,12 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = true;
             MenuHandler.Instance.gamePlayUIHandler.moveSlider = true;
-            if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+            if (collision.transform.parent.gameObject.GetComponent<platformHandler>())
             {
-                SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+                if (collision.transform.parent.gameObject.GetComponent<platformHandler>().playerSpawnPosition != null)
+                {
+                    SceneHandler.Instance.revivePlatform = collision.transform.parent.gameObject;
+                }
             }
         }
     }

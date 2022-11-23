@@ -41,6 +41,7 @@ public class CameraFollow : MonoBehaviour
 
     IEnumerator spawnBirdWithDelay()
     {
+        yield return new WaitForSeconds(1);
         while (SceneHandler.Instance.isGamePlay)
         {
             if (bird != null)

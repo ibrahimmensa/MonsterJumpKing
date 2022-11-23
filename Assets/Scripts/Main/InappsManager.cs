@@ -17,7 +17,7 @@ public class InappsManager : Singleton<InappsManager>,IStoreListener
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.DeleteKey("8"); //for testing purpose
+        //PlayerPrefs.DeleteKey("AdsRemoved"); //for testing purpose
     }
 
     // Update is called once per frame

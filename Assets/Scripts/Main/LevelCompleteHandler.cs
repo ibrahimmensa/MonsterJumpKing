@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LevelCompleteHandler : MonoBehaviour
 {
     public Text levelNumber;
-    public Text coinText;
-    public Text gemText;
+    public TextMeshProUGUI coinText;
+    public TextMeshProUGUI gemText;
     public int totalCoins;
     public int totalGems;
     public Button rewardBtn;

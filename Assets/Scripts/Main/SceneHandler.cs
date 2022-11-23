@@ -111,7 +111,8 @@ public class SceneHandler : Singleton<SceneHandler>
         cam.gameObject.GetComponent<CameraFollow>().player = spawnedPlayer.transform;
         spawnedPlayer.GetComponent<PlayerController>().coinsCollected = coinsBeforeFall;
         spawnedPlayer.GetComponent<PlayerController>().updateUI();
-        if(Lives <= 0 && !isRevivedOnce)
+        spawnedPlayer.GetComponent<PlayerController>().hasTouchedFlyingHurdle = false;
+        if (Lives <= 0 && !isRevivedOnce)
         {
             isRevivedOnce = true;
         }
