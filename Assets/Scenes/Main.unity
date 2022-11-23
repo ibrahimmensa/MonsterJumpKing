@@ -6238,7 +6238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _androidGameId: 4960445
   _iOSGameId: 4960444
-  _testMode: 1
+  _testMode: 0
   _androidAdUnitId: Rewarded_Android
   _iOSAdUnitId: Rewarded_iOS
   _androidAdUnitIdInterstitial: Interstitial_Android
@@ -32000,6 +32000,7 @@ MonoBehaviour:
   buyAllPlayersPurchasedButton: {fileID: 26768040}
   superOfferBuyButton: {fileID: 407562484}
   superOfferPurchasedButton: {fileID: 624268952}
+  removeAdsButtonOnMainMenu: {fileID: 742031879}
 --- !u!4 &1615913477
 Transform:
   m_ObjectHideFlags: 0

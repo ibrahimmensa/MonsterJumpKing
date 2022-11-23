@@ -14,6 +14,8 @@ public class GoogleAdsManager : Singleton<GoogleAdsManager>
         // Initialize the Google Mobile Ads SDK.
         MobileAds.Initialize(initStatus => { });
 
+        Debug.Log("google ads working");
+
         if (PlayerPrefs.GetInt("AdsRemoved", 0) == 0)
             this.RequestBanner();
         //RequestInterstitial();
@@ -24,8 +26,8 @@ public class GoogleAdsManager : Singleton<GoogleAdsManager>
     {
 #if UNITY_ANDROID
         string adUnitId = "ca-app-pub-9962568154534727/1191474429";
-#elif UNITY_IPHONE
-            string adUnitId = "ca-app-pub-9962568154534727/1776963632";
+#elif UNITY_IOS
+        string adUnitId = "ca-app-pub-9962568154534727/1776963632";
 #else
             string adUnitId = "unexpected_platform";
 #endif

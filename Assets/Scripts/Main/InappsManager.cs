@@ -12,6 +12,7 @@ public class InappsManager : Singleton<InappsManager>,IStoreListener
     public GameObject buyAllPlayersPurchasedButton;    
     public GameObject superOfferBuyButton;
     public GameObject superOfferPurchasedButton;
+    public GameObject removeAdsButtonOnMainMenu;
 
 
     // Start is called before the first frame update
@@ -74,6 +75,7 @@ public class InappsManager : Singleton<InappsManager>,IStoreListener
         Debug.Log("Purchase Complete.........");
         PlayerPrefs.SetInt("AdsRemoved", 1);
         GoogleAdsManager.Instance.destroyAllBanners();
+        removeAdsButtonOnMainMenu.SetActive(false);
         Invoke("DisableRemoveAdBuyButton", 1);
     }
 
