@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class SplashScreenManager : MonoBehaviour
+public class SplashScreenManager : Singleton<SplashScreenManager>
 {
     public Slider loadingBar;
     AsyncOperation sceneAO;
+
+    public bool canLoadNextScene = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +35,10 @@ public class SplashScreenManager : MonoBehaviour
 
     IEnumerator LoadLevel()
     {
+        while (!canLoadNextScene)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
         float previousProgress = 0f;
         sceneAO = SceneManager.LoadSceneAsync(1);
 

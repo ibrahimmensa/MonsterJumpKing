@@ -6,7 +6,6 @@ using UnityEngine.Purchasing;
 
 public class InappsManager : Singleton<InappsManager>
 {
-    public string[] nonConsumableProductIds;
     public GameObject removeAdsBuyButton;
     public GameObject removeAdsPurchasedButton;    
     public GameObject buyAllPlayersBuyButton;
@@ -19,44 +18,32 @@ public class InappsManager : Singleton<InappsManager>
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < nonConsumableProductIds.Length; i++)
+        for (int i = 0; i < InappListener.instance.nonConsumableItemsUnlocked.Length; i++)
         {
-            CheckProductPurchased(nonConsumableProductIds[i]);
+            if(InappListener.instance.nonConsumableItemsUnlocked[i])
+                CheckProductPurchased(i);
         }
         //PlayerPrefs.DeleteKey("5"); //for testing purpose
         //PlayerPrefs.DeleteKey("PlayerRewarded"); //for testing purpose
         //PlayerPrefs.DeleteKey("LastTimeClicked"); //for testing purpose
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CheckProductPurchased(int id)
     {
-        
-    }
-
-    public void CheckProductPurchased(string productId)
-    {
-        if (CodelessIAPStoreListener.Instance.StoreController != null)
+        if (id == 0)
         {
-            Debug.Log("checking for reciepts.........");
-            Product product = CodelessIAPStoreListener.Instance.StoreController.products.WithID(productId);
-            if (product != null && product.hasReceipt)
-            {
-                Debug.Log("unlocking product");
-                //unlock products
-                if (productId == nonConsumableProductIds[0])
-                {
-                    RemoveAdsPurchased();
-                }
-                else if (productId == nonConsumableProductIds[1])
-                {
-                    BuyAllPlayersOfferPurchased();
-                }
-                else if (productId == nonConsumableProductIds[2])
-                {
-                    SuperOfferPurchased();
-                }
-            }
+            RemoveAdsPurchased();
+            DisableRemoveAdBuyButton();
+        }
+        else if (id == 1)
+        {
+            BuyAllPlayersOfferPurchased();
+            DisableBuyAllPlayersBuyButton();
+        }
+        else if (id == 2)
+        {
+            SuperOfferPurchased();
+            DisableSuperOfferBuyButton();
         }
     }
 
@@ -125,21 +112,5 @@ public class InappsManager : Singleton<InappsManager>
     {
         superOfferBuyButton.SetActive(false);
         superOfferPurchasedButton.SetActive(true);
-    }
-
-    public void OnPurchaseComplete(Product p)
-    {
-        if (p.definition.id == nonConsumableProductIds[0])
-        {
-            RemoveAdsPurchased();
-        }
-        else if (p.definition.id == nonConsumableProductIds[1])
-        {
-            BuyAllPlayersOfferPurchased();
-        }
-        else if (p.definition.id == nonConsumableProductIds[2])
-        {
-            SuperOfferPurchased();
-        }
     }
 }
