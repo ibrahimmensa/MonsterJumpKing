@@ -10,13 +10,15 @@ public enum MenuStates
     SHOP,
     GAMEPLAY,
     CHARACTERSELECTION,
-    ENVIRONMENTSELECTION
+    ENVIRONMENTSELECTION,
+    DAILYREWARDS
 }
 
 public class SceneHandler : Singleton<SceneHandler>
 {
     public PlatformSpawner platformSpawner;
     public LevelHandler levelHandler;
+    public PlayerPurchasingInfo playersInfo;
     public bool isGamePlay = false;
     public GameObject[] playerPrefabs;
     public int selectedPlayerNumber = 0;

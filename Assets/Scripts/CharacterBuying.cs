@@ -47,6 +47,7 @@ public class CharacterBuying : MonoBehaviour
             if(PlayerPrefs.GetInt("Gems", 0) > RequiredAssetAmount)
             {
                 PlayerPrefs.SetString(CharacterNumber, "true");
+                SceneHandler.Instance.playersInfo.playersInfo[int.Parse(CharacterNumber)].isBought = true;
                 Bought = true;
                 //gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Gems", PlayerPrefs.GetInt("Gems", 0) - RequiredAssetAmount);
@@ -67,6 +68,7 @@ public class CharacterBuying : MonoBehaviour
             if (PlayerPrefs.GetInt("Coins", 0) > RequiredAssetAmount)
             {
                 PlayerPrefs.SetString(CharacterNumber, "true");
+                SceneHandler.Instance.playersInfo.playersInfo[int.Parse(CharacterNumber)].isBought = true;
                 Bought = true;
                 //gameObject.GetComponent<Image>().color = new Color(1, 1, 1);
                 PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 0) - RequiredAssetAmount);

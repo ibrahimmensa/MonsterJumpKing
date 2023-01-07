@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 674a5588a2191624786de210f1b507ce, type: 3}
+  m_Name: PlayerPurchasingData
+  m_EditorClassIdentifier: 
+  playersInfo:
+  - isBought: 1
+    noOfAdsToWatchInTotal: 0
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 1
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 2
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 4
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 6
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 8
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 10
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 12
+    noOfAdsWatched: 0
+  - isBought: 0
+    noOfAdsToWatchInTotal: 15
+    noOfAdsWatched: 0

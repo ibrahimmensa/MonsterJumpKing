@@ -66,6 +66,7 @@ public class MainMenu : MonoBehaviour
     public void onClickRewards()
     {
         SoundManager.Instance.playOnce(SoundEffects.BUTTONCLICK);
+        MenuHandler.Instance.switchMenu(MenuStates.DAILYREWARDS);
     }
 
     public void onClickFreeCoins()

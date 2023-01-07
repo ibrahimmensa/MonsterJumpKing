@@ -25,7 +25,7 @@ public class GoogleAdsManager : Singleton<GoogleAdsManager>
     public void RequestBanner()
     {
 #if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-9962568154534727/1191474429";
+        string adUnitId = "ca-app-pub-1778345177688333/8805147622";
 #elif UNITY_IOS
         string adUnitId = "ca-app-pub-9962568154534727/1776963632";
 #else

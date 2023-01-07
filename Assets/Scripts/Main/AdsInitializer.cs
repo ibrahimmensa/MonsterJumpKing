@@ -122,6 +122,9 @@ public class AdsInitializer : Singleton<AdsInitializer>, IUnityAdsInitialization
                 case RewardedAdType.DOUBLEREWARD:
                     MenuHandler.Instance.levelCompleteHandler.doubleRewardResponse();
                     break;
+                case RewardedAdType.FREECHARACTER:
+                    MenuHandler.Instance.characterSelectioncreen.BuyPlayerAdWatched();
+                    break;
             }
         }
         else

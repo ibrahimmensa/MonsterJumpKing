@@ -11,6 +11,7 @@ public class CharacterSelection : MonoBehaviour
     public GameObject AdsButton;
     public GameObject SelectButton;
     public GameObject SelectedButton;
+    public TMPro.TMP_Text adsText;
 
     // Start is called before the first frame update
     void Start()
@@ -37,11 +38,6 @@ public class CharacterSelection : MonoBehaviour
         Invoke("setUpCharacterScreen", 0.01f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void NextCharacter()
     {
         DisbaleAll();
@@ -116,6 +112,28 @@ public class CharacterSelection : MonoBehaviour
         CharactersList[currentCharacter].GetComponent<CharacterBuying>().BuyPlayer();
         FirstCHaracterButtons();
     }
+
+    public void BuyWithAds()
+    {
+        AdsInitializer.Instance.ShowAd(RewardedAdType.FREECHARACTER);
+    }
+
+    public void BuyPlayerAdWatched()
+    {
+        SceneHandler.Instance.playersInfo.playersInfo[currentCharacter].noOfAdsWatched++;
+        PlayerPrefs.SetInt("AdsWatched" + currentCharacter, PlayerPrefs.GetInt("AdsWatched" + currentCharacter, 0) + 1);
+        SceneHandler.Instance.playersInfo.playersInfo[currentCharacter].noOfAdsWatched = PlayerPrefs.GetInt("AdsWatched" + currentCharacter, 0);
+        if (SceneHandler.Instance.playersInfo.playersInfo[currentCharacter].noOfAdsWatched== SceneHandler.Instance.playersInfo.playersInfo[currentCharacter].noOfAdsToWatchInTotal)
+        {
+            PlayerPrefs.SetString(currentCharacter.ToString(), "true");
+            CharactersList[currentCharacter].GetComponent<CharacterBuying>().Bought = true;
+            CharactersList[currentCharacter].GetComponent<CharacterBuying>().Child.SetActive(false);
+            CharactersList[currentCharacter].GetComponent<CharacterBuying>().Child2.SetActive(false);
+            SceneHandler.Instance.playersInfo.playersInfo[currentCharacter].isBought = true;
+        }
+        FirstCHaracterButtons();
+    }
+
     public void FirstCHaracterButtons()
     {
         if(currentCharacter == 0)
@@ -152,6 +170,7 @@ public class CharacterSelection : MonoBehaviour
         {
             unlockButton.SetActive(true);
             AdsButton.SetActive(true);
+            adsText.text = PlayerPrefs.GetInt("AdsWatched" + currentCharacter, 0) + "/" + SceneHandler.Instance.playersInfo.playersInfo[currentCharacter].noOfAdsToWatchInTotal;
             SelectedButton.SetActive(false);
             SelectButton.SetActive(false);
         }

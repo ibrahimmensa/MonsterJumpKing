@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Purchasing;
 
-public class InappsManager : Singleton<InappsManager>,IStoreListener
+public class InappsManager : Singleton<InappsManager>
 {
     public string[] nonConsumableProductIds;
     public GameObject removeAdsBuyButton;
@@ -18,7 +19,13 @@ public class InappsManager : Singleton<InappsManager>,IStoreListener
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerPrefs.DeleteKey("AdsRemoved"); //for testing purpose
+        for (int i = 0; i < nonConsumableProductIds.Length; i++)
+        {
+            CheckProductPurchased(nonConsumableProductIds[i]);
+        }
+        //PlayerPrefs.DeleteKey("5"); //for testing purpose
+        //PlayerPrefs.DeleteKey("PlayerRewarded"); //for testing purpose
+        //PlayerPrefs.DeleteKey("LastTimeClicked"); //for testing purpose
     }
 
     // Update is called once per frame
@@ -35,6 +42,7 @@ public class InappsManager : Singleton<InappsManager>,IStoreListener
             Product product = CodelessIAPStoreListener.Instance.StoreController.products.WithID(productId);
             if (product != null && product.hasReceipt)
             {
+                Debug.Log("unlocking product");
                 //unlock products
                 if (productId == nonConsumableProductIds[0])
                 {
@@ -75,7 +83,7 @@ public class InappsManager : Singleton<InappsManager>,IStoreListener
         Debug.Log("Purchase Complete.........");
         PlayerPrefs.SetInt("AdsRemoved", 1);
         GoogleAdsManager.Instance.destroyAllBanners();
-        removeAdsButtonOnMainMenu.SetActive(false);
+        removeAdsButtonOnMainMenu.GetComponent<Button>().interactable = false;
         Invoke("DisableRemoveAdBuyButton", 1);
     }
 
@@ -121,27 +129,19 @@ public class InappsManager : Singleton<InappsManager>,IStoreListener
         superOfferPurchasedButton.SetActive(true);
     }
 
-    public void OnInitializeFailed(InitializationFailureReason error)
+    public void OnPurchaseComplete(Product p)
     {
-        throw new System.NotImplementedException();
-    }
-
-    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs purchaseEvent)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnPurchaseFailed(Product product, PurchaseFailureReason failureReason)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnInitialized(IStoreController controller, IExtensionProvider extensions)
-    {
-        for (int i = 0; i < nonConsumableProductIds.Length; i++)
+        if (p.definition.id == nonConsumableProductIds[0])
         {
-            CheckProductPurchased(nonConsumableProductIds[i]);
+            RemoveAdsPurchased();
         }
-        throw new System.NotImplementedException();
+        else if (p.definition.id == nonConsumableProductIds[1])
+        {
+            BuyAllPlayersOfferPurchased();
+        }
+        else if (p.definition.id == nonConsumableProductIds[2])
+        {
+            SuperOfferPurchased();
+        }
     }
 }
