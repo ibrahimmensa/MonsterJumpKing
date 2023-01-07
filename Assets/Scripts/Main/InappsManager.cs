@@ -118,8 +118,6 @@ public class InappsManager : Singleton<InappsManager>
         Debug.Log("Purchase Complete.........");
         RemoveAdsPurchased();
         BuyAllPlayersOfferPurchased();
-        CoinsPurchased(8000);
-        GemsPurchased(80);
         Invoke("DisableSuperOfferBuyButton", 1);
     }
 
